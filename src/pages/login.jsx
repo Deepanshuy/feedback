@@ -23,7 +23,7 @@ const Login = () => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     console.log(formData);
   };
-  const { email, password } = formData;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -34,10 +34,7 @@ const Login = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            email: email,
-            password: password,
-          }),
+          body: JSON.stringify(formData),
         }
       );
 
