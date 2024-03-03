@@ -16,6 +16,28 @@ const userschema = new mongoose.Schema({
     required: [true, "please enter a password"],
     minlength: [6, "minmum length should be six"],
   },
+  name: {
+    type: String,
+    required: [true, "please enter your name"],
+    lowercase: true,
+  },
+
+  course: {
+    type: String,
+    required: [true, "please select your course"],
+  },
+  branch: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref:"Branch",
+    },
+  ],
+  rollnumber: {
+    type: Number,
+    required: [true, "please enter your roll number"],
+    unique: true,
+    minlength: [7, "minimum length should be seven"],
+  },
   accountType: {
     type: String,
     enum: ["Admin", "Student"],
@@ -25,37 +47,18 @@ const userschema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  approved:{
+    type:Boolean,
+    default:false
+  }
 });
 
-// registration schema:
-const registerationSchema = new mongoose.Schema({
-  yourname: {
-    type: String,
-    required: [true, "please enter your name"],
-    lowercase: true,
-  },
-  email: {
-    type: String,
-    required: [true, "please enter an email"],
-    unique: true,
-    lowercase: true,
-    validate: [isEmail, "please enter valid email"],
-  },
-  course: {
-    type: String,
-    required: [true, "please select your course"],
-  },
-  branch: {
-    type: String,
-    required: [true, "please select your branch"],
-  },
-  rollnumber: {
-    type: Number,
-    required: [true, "please enter your roll number"],
-    unique: true,
-    minlength: [7, "minimum length should be seven"],
-  },
-});
+const branch= mongoose.Schema({
+  BranchName:{
+    type:String,
+
+  }
+})
 
 // send email function
 
@@ -80,8 +83,8 @@ const registerationSchema = new mongoose.Schema({
 // });
 
 const users = mongoose.model("users", userschema);
-const registration = mongoose.model("registration", registerationSchema);
+const Branch=mongoose.model("Branch",branch);
 module.exports = {
   users,
-  registration,
+  Branch
 };

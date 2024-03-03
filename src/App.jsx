@@ -22,11 +22,9 @@ function App() {
         <Route path="/" element={<HomePage/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/signup" element={<Signup/>}/>
-        <Route path="/register" element={<Register/>}/>
         <Route path="/btech" element={<Btech/>}/>
         <Route path="/bvoc" element={<Bvoc/>}/>
         <Route path="/bsc" element={<Bsc/>}/>
-        
        </Routes>
 
      </div>
