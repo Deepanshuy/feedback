@@ -6,10 +6,11 @@ import Button from "@mui/material/Button";
 import { Link, useNavigate } from "react-router-dom";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 
 const Login = () => {
+  const token = JSON.parse(localStorage.getItem("token")) ?? null;
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const changeHandler = () => {
@@ -21,7 +22,6 @@ const Login = () => {
   });
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    console.log(formData);
   };
 
   const handleSubmit = async (e) => {
@@ -39,12 +39,14 @@ const Login = () => {
       );
 
       const res = await response.json();
-
-      if (res.status) {
+      console.log(res);
+      if (res.message.approved === true) {
         toast.success("Login Successful");
         localStorage.setItem("token", JSON.stringify(res.message.token));
         localStorage.setItem("user", JSON.stringify(res.message));
         navigate("/dashboard/my-profile");
+      } else {
+        toast.error("Your Account is not approved");
       }
       if (!res.status) {
         toast.error(res.message);
@@ -56,14 +58,19 @@ const Login = () => {
       toast.error("Login Error");
     }
   };
+  useEffect(() => {
+    if (token) {
+      navigate("/dashboard/my-profile");
+    }
+  }, []);
 
   return (
-    <div className="w-screen flex justify-center items-center">
-      <div className="w-[60%] h-[25rem] md:mt-16 mt-16  mx-auto  flex justify-center items-center overflow-hidden rounded-2xl  border-[#40afbf] border-4">
-        <div className="  md:block loginImg   hidden overflow-hidden">
+    <div className="w-screen flex justify-center items-center h-screen">
+      <div className="md:w-[60%] w-[90%] h-[25rem] mx-auto  flex justify-center items-center overflow-hidden rounded-2xl  border-[#40afbf] border-4">
+        <div className="  md:block loginImg  hidden overflow-hidden">
           <img src={login1} className="object-cover" alt="login" />
         </div>
-        <div className="flex  flex-col  justify-between p-4 w-[60%] h-full">
+        <div className="flex  flex-col  justify-between p-4 md:w-[60%] h-full">
           <div className="w-full ">
             <img src={logo} className="object-cover mx-auto" alt="login" />
           </div>
