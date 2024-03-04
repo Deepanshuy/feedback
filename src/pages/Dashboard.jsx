@@ -8,7 +8,7 @@ const Dashboard = () => {
     <div>
       <div className="relative flex min-h-[calc(100vh-3.5rem)]">
         <div
-          className="min-w-[222px] flex-col border-r-[1px] border-r-richblack-700 lg:flex
+          className="min-w-[222px] flex-col  lg:flex
         h-[calc[100vh-3.5rem)] bg-[#40afbf] py-10"
         >
           <div className="flex flex-col  ">

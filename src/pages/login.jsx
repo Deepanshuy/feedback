@@ -45,7 +45,8 @@ const Login = () => {
         localStorage.setItem("token", JSON.stringify(res.message.token));
         localStorage.setItem("user", JSON.stringify(res.message));
         navigate("/dashboard/my-profile");
-      } else {
+      }
+      if (res.message.approved === false) {
         toast.error("Your Account is not approved");
       }
       if (!res.status) {
