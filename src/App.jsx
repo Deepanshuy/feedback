@@ -12,9 +12,11 @@ import Dashboard from "./pages/Dashboard";
 import MyProfile from "./pages/MyProfile";
 import AdminDashboard from "./pages/AdminDashboard";
 import Requests from "./pages/Requests";
+import NotFound from "./pages/NotFound";
 
 function App() {
   const user = JSON.parse(localStorage.getItem("user")) ?? null;
+  const token = JSON.parse(localStorage.getItem("token")) ?? null;
   return (
     <div>
       <Navbar />
@@ -27,7 +29,9 @@ function App() {
           <Route path="/bvoc" element={<Bvoc />} />
           <Route path="/bsc" element={<Bsc />} />
           <Route element={<Dashboard />}>
-            <Route path="/dashboard/my-profile" element={<MyProfile />} />
+            {token && (
+              <Route path="/dashboard/my-profile" element={<MyProfile />} />
+            )}
             {user?.accountType === "Admin" && (
               <>
                 <Route path="/dashboard/admin" element={<AdminDashboard />} />
@@ -35,6 +39,7 @@ function App() {
               </>
             )}
           </Route>
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
     </div>
