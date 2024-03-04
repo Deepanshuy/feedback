@@ -4,11 +4,35 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 module.exports.signup = async (req, res) => {
   try {
-    const { email, password, accountType = "Student" } = req.body;
-    if (!email || !password || !accountType) {
+    const {
+      email,
+      password,
+      confirmPassword,
+      name,
+      course,
+      branch,
+      rollNumber,
+      sem,
+    } = req.body;
+    if (
+      !email ||
+      !password ||
+      !confirmPassword ||
+      !name ||
+      !course ||
+      !branch ||
+      !rollNumber ||
+      !sem
+    ) {
       return res.status(400).json({
         status: false,
         message: "Please fill all the fields",
+      });
+    }
+    if (password != confirmPassword) {
+      return res.status(403).json({
+        status: false,
+        message: "Password and confirm password do not match",
       });
     }
 
@@ -20,10 +44,18 @@ module.exports.signup = async (req, res) => {
         message: "User already Registered",
       });
     }
+    const existingRollNumber = await users.findOne({ rollNumber: rollNumber });
+
+    if (existingRollNumber) {
+      return res.status(200).json({
+        status: false,
+        message: "Roll Number already Registered",
+      });
+    }
+
     const hashedPassword = await bcrypt.hash(password, 5);
     const payload = {
       email,
-      accountType,
     };
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
       expiresIn: 3 * 60 * 60 * 24,
@@ -31,11 +63,14 @@ module.exports.signup = async (req, res) => {
     const User = await users.create({
       email,
       password: hashedPassword,
-      accountType,
       token,
+      name,
+      course,
+      branch,
+      rollNumber,
+      sem,
     });
     User.password = undefined;
-    req.user = User;
 
     return res
       .cookie("token", token, {
@@ -44,7 +79,8 @@ module.exports.signup = async (req, res) => {
       })
       .json({
         status: true,
-        data: User,
+        message: User,
+        token,
       });
   } catch (err) {
     console.log(err);
@@ -84,33 +120,33 @@ module.exports.login = async (req, res) => {
   });
 };
 
-module.exports.get_registration = async (req, res) => {
-  try {
-    const { yourname, email, course, branch, rollnumber } = req.body;
-    if (!yourname || !email || !course || !branch || !rollnumber) {
-      res.status(404).json({
-        status: false,
-        message: "please fill all the fields",
-      });
-    }
-    const data = registration.create({
-      yourname,
-      email,
-      course,
-      branch,
-      rollnumber,
-    });
-    console.log(data);
-    res.status(201).json({
-      status: true,
-      data: data,
-    });
-  } catch (err) {
-    console.log(err);
-    res.status(404).json({
-      status: false,
-      message: "something went wrong",
-    });
-  }
-  await registration.create(body);
-};
+// module.exports.get_registration = async (req, res) => {
+//   try {
+//     const { yourname, email, course, branch, rollnumber } = req.body;
+//     if (!yourname || !email || !course || !branch || !rollnumber) {
+//       res.status(404).json({
+//         status: false,
+//         message: "please fill all the fields",
+//       });
+//     }
+//     const data = registration.create({
+//       yourname,
+//       email,
+//       course,
+//       branch,
+//       rollnumber,
+//     });
+//     console.log(data);
+//     res.status(201).json({
+//       status: true,
+//       data: data,
+//     });
+//   } catch (err) {
+//     console.log(err);
+//     res.status(404).json({
+//       status: false,
+//       message: "something went wrong",
+//     });
+//   }
+//   await registration.create(body);
+// };

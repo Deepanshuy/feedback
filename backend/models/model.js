@@ -24,15 +24,17 @@ const userschema = new mongoose.Schema({
 
   course: {
     type: String,
-    required: [true, "please select your course"],
   },
-  branch: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref:"Branch",
-    },
-  ],
-  rollnumber: {
+  sem: {
+    type: String,
+    enum: [1, 2, 3, 4, 5, 6, 7, 8],
+  },
+
+  branch: {
+    type: String,
+  },
+
+  rollNumber: {
     type: Number,
     required: [true, "please enter your roll number"],
     unique: true,
@@ -41,24 +43,17 @@ const userschema = new mongoose.Schema({
   accountType: {
     type: String,
     enum: ["Admin", "Student"],
-    required: true,
+    default: "Student",
   },
   token: {
     type: String,
     required: true,
   },
-  approved:{
-    type:Boolean,
-    default:false
-  }
+  approved: {
+    type: Boolean,
+    default: false,
+  },
 });
-
-const branch= mongoose.Schema({
-  BranchName:{
-    type:String,
-
-  }
-})
 
 // send email function
 
@@ -83,8 +78,7 @@ const branch= mongoose.Schema({
 // });
 
 const users = mongoose.model("users", userschema);
-const Branch=mongoose.model("Branch",branch);
+
 module.exports = {
   users,
-  Branch
 };

@@ -9,7 +9,6 @@ router.post(
   "/registration",
   auth.auth,
   auth.isStudent,
-  controller.get_registration
 );
 
 module.exports = router;
