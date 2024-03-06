@@ -14,13 +14,13 @@ const Navbar = () => {
   };
   return (
     <div className="h-[8dvh] w-screen fixed top-0 bg-[#40afbf] text-white font-medium flex justify-between items-center p-6 z-10">
-      <div className="p-2 border-6 border-black h-[5rem] w-[12rem]">
+      <Link to={"/"} className="p-2 border-6 border-black h-[5rem] w-[12rem]">
         <img
           src={feedbackLogo}
           alt="feedbacklogo"
-          className="object-cover h-full w-full "
+          className="object-cover h-full w-full  "
         />
-      </div>
+      </Link>
       <div className="md:flex items-center gap-x-4 hidden">
         {!token && (
           <Link

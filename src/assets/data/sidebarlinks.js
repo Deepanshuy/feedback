@@ -16,4 +16,10 @@ export const sidebarLinks = [
     type: "Admin",
     path: "/dashboard/requests",
   },
+  {
+    id: 4,
+    name: "Dashboard",
+    type: "Student",
+    path: "/dashboard/student",
+  },
 ];

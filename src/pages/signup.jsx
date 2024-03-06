@@ -8,7 +8,6 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -217,7 +216,7 @@ const Signup = () => {
                       label="Semester"
                       onChange={handleChange}
                     >
-                      {["1", "2", "3", "4", "5", "6", "7", "8"].map(
+                      {["1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th"].map(
                         (item, index) =>
                           formData.branch && (
                             <MenuItem key={index} value={item}>

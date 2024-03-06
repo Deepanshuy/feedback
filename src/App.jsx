@@ -1,4 +1,3 @@
-import { Button } from "@mui/material";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import Login from "./pages/login";
@@ -13,6 +12,8 @@ import MyProfile from "./pages/MyProfile";
 import AdminDashboard from "./pages/AdminDashboard";
 import Requests from "./pages/Requests";
 import NotFound from "./pages/NotFound";
+import { useEffect } from "react";
+import StudentDashboard from "./pages/StudentDashboard";
 
 function App() {
   const user = JSON.parse(localStorage.getItem("user")) ?? null;
@@ -29,17 +30,24 @@ function App() {
           <Route path="/bvoc" element={<Bvoc />} />
           <Route path="/bsc" element={<Bsc />} />
           <Route element={<Dashboard />}>
-            {token && (
-              <Route path="/dashboard/my-profile" element={<MyProfile />} />
-            )}
+            <Route path="/dashboard/my-profile" element={<MyProfile />} />
+
             {user?.accountType === "Admin" && (
               <>
                 <Route path="/dashboard/admin" element={<AdminDashboard />} />
                 <Route path="/dashboard/requests" element={<Requests />} />
               </>
             )}
+            {user?.accountType === "Student" && (
+              <>
+                <Route
+                  path="/dashboard/student"
+                  element={<StudentDashboard />}
+                />
+              </>
+            )}
           </Route>
-          <Route path="*" element={<NotFound />} />
+          {/* <Route path="*" element={<NotFound />} /> */}
         </Routes>
       </div>
     </div>
