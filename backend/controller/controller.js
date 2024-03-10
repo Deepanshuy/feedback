@@ -1,4 +1,4 @@
-const { users, registration } = require("../models/model");
+const { users, registration, feedback, scores } = require("../models/model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
@@ -185,6 +185,77 @@ module.exports.deleteRequest = async (req, res) => {
     return res.status(400).json({
       status: false,
       message: "Error while Approving Request",
+    });
+  }
+};
+
+module.exports.createFeedback = async (req, res) => {
+  try {
+    const { teacher, subject } = req.body;
+    const existingFeedback = await feedback.findOne({
+      teacher: teacher,
+      subject: subject,
+    });
+
+    if (existingFeedback) {
+      return res.status(200).json({
+        status: true,
+        message: "Feedback already exists",
+      });
+    }
+    const newFeedback = await feedback.create({
+      teacher: teacher,
+      subject: subject,
+    });
+
+    return res.status(200).json({
+      status: true,
+      newFeedback,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(400).json({
+      status: false,
+      message: "Error while Creating Feedback",
+    });
+  }
+};
+
+module.exports.createScores = async (req, res) => {
+  try {
+    const { teacher, subject, name, score } = req.body;
+
+    const newScore = await scores.create({
+      name: name,
+      score: score,
+    });
+
+    const Feedback = await feedback.findOne({
+      teacher: teacher,
+      subject: subject,
+    });
+
+    const updatedFeedback = await feedback.findByIdAndUpdate(
+      {
+        _id: Feedback._id,
+      },
+      {
+        $push: { score: newScore._id },
+      },
+      {
+        new: true,
+      }
+    );
+
+    return res.status(200).json({
+      status: true,
+      updatedFeedback,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(400).json({
+      status: false,
+      message: "Error while Creating Feedback",
     });
   }
 };

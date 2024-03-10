@@ -10,5 +10,7 @@ router.post("/registration", auth.auth, auth.isStudent);
 
 router.put("/approve", controller.approveRequest);
 router.delete("/delete", controller.deleteRequest);
+router.post("/createFeedback", controller.createFeedback);
+router.post("/createScore", controller.createScores);
 
 module.exports = router;

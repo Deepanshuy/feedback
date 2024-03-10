@@ -5,6 +5,8 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import "../../src/App.css";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const StudentDashboard = () => {
   const user = JSON.parse(localStorage.getItem("user")) ?? null;
@@ -12,6 +14,7 @@ const StudentDashboard = () => {
   const [teacher, setTeacher] = useState("");
   const [formData, setFormData] = useState([]);
 
+  const navigate = useNavigate();
   const handleChange = (e) => {
     const fieldName = e.target.name;
     const fieldPrice = e.target.value;
@@ -235,9 +238,57 @@ const StudentDashboard = () => {
     },
   ];
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_APP_BASE_URL}/createFeedback`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            teacher: teacher,
+            subject: subject,
+          }),
+        }
+      );
+
+      const res = await response.json();
+      console.log(res);
+    } catch (e) {
+      console.log(e);
+      toast.error("Create Feedback Error Error");
+    }
+    formData.forEach(async (data) => {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_APP_BASE_URL}/createScore`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              teacher: teacher,
+              subject: subject,
+              name: data.name,
+              score: data.score,
+            }),
+          }
+        );
+
+        const res = await response.json();
+
+        console.log(res);
+      } catch (e) {
+        console.log(e);
+        toast.error("Create Feedback Error Error");
+      }
+    });
+    toast.success("Your Feedback Has been created successfully");
+    navigate("/");
   };
 
   return (
@@ -296,17 +347,18 @@ const StudentDashboard = () => {
                   <div className="p-4  flex flex-col gap-y-4 border-2 custom-border m-3  rounded-lg bg-[#40afbf]">
                     {item.metric.map((d, i) => (
                       <div
-                        className="flex justify-between items-center border rounded-lg p-2 custom-border bg-white "
+                        className="flex flex-col md:flex-row justify-between items-center border rounded-lg p-2 custom-border bg-white "
                         key={i}
                       >
                         <p>{d}</p>
-                        <div className=" w-[5rem]">
+                        <div className=" md:w-[5rem] w-full">
                           <TextField
                             id={d}
                             variant="outlined"
                             onChange={handleChange}
                             value={formData.d}
                             size="small"
+                            className="w-full"
                             type="number"
                             name={d}
                             inputProps={{
@@ -317,8 +369,8 @@ const StudentDashboard = () => {
                         </div>
                       </div>
                     ))}
-                    <div className=" w-[100%]  p-1 flex items-center justify-between">
-                      <div className="  w-[50%] p-3">
+                    <div className=" w-[100%]   p-1 flex md:flex-row flex-col items-center justify-between">
+                      <div className="  md:w-[50%] p-3">
                         <h2 className="p-1 font-semibold">
                           Suggestions if any:
                         </h2>
@@ -336,7 +388,7 @@ const StudentDashboard = () => {
                           cols={100}
                         />
                       </div>
-                      <div className="w-[40%]">
+                      <div className="md:w-[40%]">
                         <h1 className="p-1 font-semibold">
                           Give Rating on a Scale of 1 to 5:
                         </h1>
