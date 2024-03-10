@@ -1,10 +1,11 @@
 import { Button, Divider, TextField } from "@mui/material";
 import React, { useState } from "react";
-
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import "../../src/App.css"
+
 
 const StudentDashboard = () => {
   const user = JSON.parse(localStorage.getItem("user")) ?? null;
@@ -213,7 +214,7 @@ const StudentDashboard = () => {
     e.preventDefault();
     console.log(formData);
   };
-  let session = "even";
+
   return (
     <div className="flex flex-col justify-between">
       <div className="text-3xl font-medium p-4">
@@ -221,14 +222,14 @@ const StudentDashboard = () => {
         <span> {user.sem}</span>
       </div>
       <Divider className="bg-black" />
-      <div className="p-4">
+      <div className="p-5">
         {data.map(
           (item, index) =>
             item.semester === user.sem &&
-            item.sess === session && (
+            item.branch === user.branch&& item.course=== user.course && (
               <form onSubmit={handleOnSubmit} key={index} className="flex-col">
-                <div className="flex flex-col md:flex-row gap-x-2 gap-y-6">
-                  <FormControl size="small" fullWidth>
+                <div className="flex flex-col md:flex-row gap-x-2 gap-y-6 ">
+                  <FormControl  size="small" fullWidth  >
                     <InputLabel id="branch">Subject</InputLabel>
                     <Select
                       labelId="subject"
@@ -266,14 +267,15 @@ const StudentDashboard = () => {
                   </FormControl>
                 </div>
                 {formData.teacher && formData.subject && (
-                  <div className="p-4  flex flex-col gap-y-4  ">
+                  <div className="p-4  flex flex-col gap-y-4 border-2 custom-border m-3  rounded-lg bg-[#40afbf]">
                     {item.metric.map((d, i) => (
                       <div
-                        className="flex gap-x-5 justify-between items-center border-2 p-2"
+                        className="flex justify-between items-center border rounded-lg p-2 custom-border bg-white "
                         key={i}
                       >
                         <p>{d}</p>
-                        <TextField
+                        <div className=" w-[5rem]">
+                           <TextField 
                           id={d}
                           variant="outlined"
                           onChange={handleChange}
@@ -281,13 +283,50 @@ const StudentDashboard = () => {
                           size="small"
                           type="number"
                           name={d}
+                          inputProps={{
+                            min: 0,     
+                            max: 5   
+                          }}
                         />
+                        </div>
                       </div>
+                      
+                      
                     ))}
+                     <div className=" w-[100%]  p-1 flex items-center justify-between">
+                     
+                      <div className="  w-[50%] p-3">
+                      <h2 className="p-1 font-semibold"> suggestion if any:</h2>
+                      <TextField className="w-full bg-white rounded-lg textfield-style"
+                       id="suggestion"
+                       variant="outlined"
+                       onChange={handleChange}
+                       value={formData.suggestion}
+                       size="medium"
+                       type="text"
+                       name="suggestion"
+                       multiline
+                       rows={5}
+                       cols={100}
+                       
+                    />
+                      </div>
+                      <div className="w-[40%]">
+                        <h1 className="p-1 font-semibold" >Give rating on a scale of 1 to 5:</h1>
+                        <ul className="bg-white rounded-lg list-disc pl-6 p-2">
+                          <li>5-excellent</li>
+                          <li>4-very good</li>
+                          <li>3-good</li>
+                          <li>2-poor</li>
+                          <li>1-very poor</li>
+                        </ul>
+                      </div>
+                      
+                     </div>
                   </div>
                 )}
                 {formData.teacher && formData.subject && (
-                  <Button variant="contained" type="submit">
+                  <Button variant="contained" type="submit" className="w-full !bg-blue-500">
                     Submit
                   </Button>
                 )}

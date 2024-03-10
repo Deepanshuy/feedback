@@ -7,3 +7,12 @@
   background: white;
   color: black;
 }
+.custom-border{
+  border-color: #40afbf;
+}
+.textfield-style{
+  border: none;
+  outline: none;
+  appearance: none;
+  border-color: green;
+}
