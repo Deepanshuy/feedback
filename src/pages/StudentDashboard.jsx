@@ -38,8 +38,6 @@ const StudentDashboard = () => {
         },
       ]);
     }
-    console.log(teacher, subject);
-    console.log(formData);
   };
 
   const data = [
@@ -322,8 +320,7 @@ const StudentDashboard = () => {
                     <div className=" w-[100%]  p-1 flex items-center justify-between">
                       <div className="  w-[50%] p-3">
                         <h2 className="p-1 font-semibold">
-                          {" "}
-                          suggestion if any:
+                          Suggestions if any:
                         </h2>
                         <TextField
                           className="w-full bg-white rounded-lg textfield-style"
@@ -341,14 +338,14 @@ const StudentDashboard = () => {
                       </div>
                       <div className="w-[40%]">
                         <h1 className="p-1 font-semibold">
-                          Give rating on a scale of 1 to 5:
+                          Give Rating on a Scale of 1 to 5:
                         </h1>
                         <ul className="bg-white rounded-lg list-disc pl-6 p-2">
-                          <li>5-excellent</li>
-                          <li>4-very good</li>
-                          <li>3-good</li>
-                          <li>2-poor</li>
-                          <li>1-very poor</li>
+                          <li>5-Excellent</li>
+                          <li>4-Very Good</li>
+                          <li>3-Good</li>
+                          <li>2-Poor</li>
+                          <li>1-Very Poor</li>
                         </ul>
                       </div>
                     </div>
