@@ -4,9 +4,6 @@ import Login from "./pages/login";
 import Signup from "./pages/signup";
 import Navbar from "./pages/component/Navbar";
 import HomePage from "./pages/Home";
-import Btech from "./pages/btech";
-import Bvoc from "./pages/bvoc";
-import Bsc from "./pages/bsc";
 import Dashboard from "./pages/Dashboard";
 import MyProfile from "./pages/MyProfile";
 import AdminDashboard from "./pages/AdminDashboard";
@@ -26,9 +23,6 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/btech" element={<Btech />} />
-          <Route path="/bvoc" element={<Bvoc />} />
-          <Route path="/bsc" element={<Bsc />} />
           <Route element={<Dashboard />}>
             <Route path="/dashboard/my-profile" element={<MyProfile />} />
 

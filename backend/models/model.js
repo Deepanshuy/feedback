@@ -36,9 +36,9 @@ const userschema = new mongoose.Schema({
 
   rollNumber: {
     type: Number,
-    required: [true, "please enter your roll number"],
+    required: true,
     unique: true,
-    minlength: [7, "minimum length should be seven"],
+    minlength: 7,
   },
   accountType: {
     type: String,

@@ -87,6 +87,7 @@ const Signup = () => {
   ];
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(formData);
     try {
       const response = await fetch(
         `${import.meta.env.VITE_APP_BASE_URL}/signup`,
@@ -100,7 +101,7 @@ const Signup = () => {
       );
 
       const res = await response.json();
-
+      console.log(res);
       if (res.status) {
         toast.success("Signup Successful");
         navigate("/login");
@@ -120,6 +121,15 @@ const Signup = () => {
       navigate("/dashboard/my-profile");
     }
   }, []);
+  let session;
+  const current= new Date();
+  const month=current.getMonth()
+  if(month>=0 && month <=5){
+    session="even"
+  }
+  else{
+    session="odd"
+  }
   return (
     <div className="w-screen flex justify-center items-center h-screen">
       <div className="md:w-[60%] w-[90%] mx-auto  flex justify-center items-center overflow-hidden rounded-2xl  border-[#40afbf] border-4">
@@ -216,14 +226,22 @@ const Signup = () => {
                       label="Semester"
                       onChange={handleChange}
                     >
-                      {["1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th"].map(
-                        (item, index) =>
-                          formData.branch && (
-                            <MenuItem key={index} value={item}>
-                              {item}
-                            </MenuItem>
-                          )
-                      )}
+                      {session === "even" && ["2nd", "4th(A)","4th(B)", "6th","8th"].map(
+                          (item, index) =>
+                            formData.branch && (
+                              <MenuItem key={index} value={item}>
+                                {item}
+                              </MenuItem>
+                            )
+                        )}
+                        {session === "odd" && ["1st", "3rd","5th", "7th",].map(
+                          (item, index) =>
+                            formData.branch && (
+                              <MenuItem key={index} value={item}>
+                                {item}
+                              </MenuItem>
+                            )
+                        )}
                     </Select>
                   </FormControl>
                 </div>
