@@ -39,7 +39,6 @@ const Login = () => {
       );
 
       const res = await response.json();
-      console.log(res);
       if (res.message.approved === true) {
         toast.success("Login Successful");
         localStorage.setItem("token", JSON.stringify(res.message.token));

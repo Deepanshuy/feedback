@@ -1,4 +1,3 @@
-import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { MdOutlineLogin } from "react-icons/md";
 import { GiNotebook } from "react-icons/gi";

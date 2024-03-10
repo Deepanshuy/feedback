@@ -5,10 +5,10 @@ const router = express.Router();
 
 router.post("/signup", controller.signup);
 router.post("/login", controller.login);
-router.post(
-  "/registration",
-  auth.auth,
-  auth.isStudent,
-);
+router.get("/getPendingStudents", controller.getPendingStudents);
+router.post("/registration", auth.auth, auth.isStudent);
+
+router.put("/approve", controller.approveRequest);
+router.delete("/delete", controller.deleteRequest);
 
 module.exports = router;

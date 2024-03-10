@@ -120,33 +120,71 @@ module.exports.login = async (req, res) => {
   });
 };
 
-// module.exports.get_registration = async (req, res) => {
-//   try {
-//     const { yourname, email, course, branch, rollnumber } = req.body;
-//     if (!yourname || !email || !course || !branch || !rollnumber) {
-//       res.status(404).json({
-//         status: false,
-//         message: "please fill all the fields",
-//       });
-//     }
-//     const data = registration.create({
-//       yourname,
-//       email,
-//       course,
-//       branch,
-//       rollnumber,
-//     });
-//     console.log(data);
-//     res.status(201).json({
-//       status: true,
-//       data: data,
-//     });
-//   } catch (err) {
-//     console.log(err);
-//     res.status(404).json({
-//       status: false,
-//       message: "something went wrong",
-//     });
-//   }
-//   await registration.create(body);
-// };
+module.exports.getPendingStudents = async (req, res) => {
+  try {
+    const students = await users.find({ approved: false });
+    if (!students) {
+      return res.status(404).json({
+        status: false,
+        message: "No Pending Students",
+      });
+    }
+    students.map((student) => (student.password = undefined));
+    return res.status(200).json({
+      status: true,
+      students,
+    });
+  } catch (err) {
+    console.log(error);
+    return res.status(400).json({
+      status: false,
+      message: "Error while fetching pending students",
+    });
+  }
+};
+
+module.exports.approveRequest = async (req, res) => {
+  try {
+    const { id } = req.body;
+    const approved = await users.findByIdAndUpdate(
+      { _id: id },
+      {
+        approved: true,
+      },
+      {
+        new: true,
+      }
+    );
+    const students = await users.find({ approved: false });
+    students.map((student) => (student.password = undefined));
+    return res.status(200).json({
+      status: true,
+      students,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(400).json({
+      status: false,
+      message: "Error while Approving Request",
+    });
+  }
+};
+
+module.exports.deleteRequest = async (req, res) => {
+  try {
+    const { id } = req.body;
+    const deleted = await users.findByIdAndDelete({ _id: id });
+    const students = await users.find({ approved: false });
+    students.map((student) => (student.password = undefined));
+    return res.status(200).json({
+      status: true,
+      students,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(400).json({
+      status: false,
+      message: "Error while Approving Request",
+    });
+  }
+};

@@ -1,17 +1,45 @@
 import { Button, Divider, TextField } from "@mui/material";
-import React, { useState } from "react";
+import { useState } from "react";
 
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-
+import DoneIcon from "@mui/icons-material/Done";
 const StudentDashboard = () => {
   const user = JSON.parse(localStorage.getItem("user")) ?? null;
+  const [subject, setSubject] = useState("");
+  const [teacher, setTeacher] = useState("");
+  const [formData, setFormData] = useState([]);
 
-  const [formData, setFormData] = useState({});
   const handleChange = (e) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    const fieldName = e.target.name;
+    const fieldPrice = e.target.value;
+
+    const existingFieldIndex = formData.findIndex(
+      (item) => item.name === fieldName
+    );
+
+    if (existingFieldIndex !== -1) {
+      setFormData((prevData) => [
+        ...prevData.slice(0, existingFieldIndex),
+        {
+          name: fieldName,
+          score: fieldPrice,
+        },
+        ...prevData.slice(existingFieldIndex + 1),
+      ]);
+    } else {
+      setFormData((prevData) => [
+        ...prevData,
+        {
+          name: fieldName,
+          score: fieldPrice,
+        },
+      ]);
+    }
+    console.log(teacher, subject);
+    console.log(formData);
   };
 
   const data = [
@@ -57,7 +85,11 @@ const StudentDashboard = () => {
         {data.map(
           (item, index) =>
             item.semester === user.sem && (
-              <form onSubmit={handleOnSubmit} key={index} className="flex-col">
+              <form
+                onSubmit={handleOnSubmit}
+                key={index}
+                className="flex-col justify-center items-center"
+              >
                 <div className="flex flex-col md:flex-row gap-x-2 gap-y-6">
                   <FormControl size="small" fullWidth>
                     <InputLabel id="branch">Subject</InputLabel>
@@ -66,9 +98,9 @@ const StudentDashboard = () => {
                       id="subject"
                       name="subject"
                       size="small"
-                      value={formData.subject}
+                      value={subject}
                       label="Subject"
-                      onChange={handleChange}
+                      onChange={(e) => setSubject(e.target.value)}
                     >
                       {item.subject.map((item, index) => (
                         <MenuItem key={index} value={item}>
@@ -84,9 +116,9 @@ const StudentDashboard = () => {
                       id="teacher"
                       name="teacher"
                       size="small"
-                      value={formData.teacher}
+                      value={teacher}
                       label="Teacher"
-                      onChange={handleChange}
+                      onChange={(e) => setTeacher(e.target.value)}
                     >
                       {item.teacher.map((item, index) => (
                         <MenuItem key={index} value={item}>
@@ -96,31 +128,39 @@ const StudentDashboard = () => {
                     </Select>
                   </FormControl>
                 </div>
-                {formData.teacher && formData.subject && (
+                {teacher && subject && (
                   <div className="p-4  flex flex-col gap-y-4 ">
                     {item.metric.map((d, i) => (
-                      <div
-                        className="flex gap-x-5 justify-between items-center"
-                        key={i}
-                      >
-                        <p>{d}</p>
-                        <TextField
-                          id={d}
-                          variant="outlined"
-                          onChange={handleChange}
-                          value={formData.d}
-                          size="small"
-                          type="number"
-                          name={d}
-                        />
+                      <div key={i} className="flex justify-center items-center">
+                        <div
+                          className="flex gap-x-5 justify-between flex-1 items-center"
+                          key={i}
+                        >
+                          <p>{d}</p>
+                          <TextField
+                            id={d}
+                            variant="outlined"
+                            onChange={handleChange}
+                            size="small"
+                            type="number"
+                            name={d}
+                          />
+                        </div>
                       </div>
                     ))}
                   </div>
                 )}
-                {formData.teacher && formData.subject && (
-                  <Button variant="contained" type="submit">
-                    Submit
-                  </Button>
+                {teacher && subject && (
+                  <div className="flex justify-center items-center">
+                    <Button
+                      startIcon={<DoneIcon />}
+                      variant="contained"
+                      type="submit"
+                      className=" !w-full"
+                    >
+                      Submit
+                    </Button>
+                  </div>
                 )}
               </form>
             )
