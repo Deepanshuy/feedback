@@ -122,13 +122,12 @@ const Signup = () => {
     }
   }, []);
   let session;
-  const current= new Date();
-  const month=current.getMonth()
-  if(month>=0 && month <=5){
-    session="even"
-  }
-  else{
-    session="odd"
+  const current = new Date();
+  const month = current.getMonth();
+  if (month >= 0 && month <= 5) {
+    session = "even";
+  } else {
+    session = "odd";
   }
   return (
     <div className="w-screen flex justify-center items-center h-screen">
@@ -226,7 +225,8 @@ const Signup = () => {
                       label="Semester"
                       onChange={handleChange}
                     >
-                      {session === "even" && ["2nd", "4th(A)","4th(B)", "6th","8th"].map(
+                      {session === "even" &&
+                        ["2nd", "4th", "6th", "8th"].map(
                           (item, index) =>
                             formData.branch && (
                               <MenuItem key={index} value={item}>
@@ -234,7 +234,8 @@ const Signup = () => {
                               </MenuItem>
                             )
                         )}
-                        {session === "odd" && ["1st", "3rd","5th", "7th",].map(
+                      {session === "odd" &&
+                        ["1st", "3rd", "5th", "7th"].map(
                           (item, index) =>
                             formData.branch && (
                               <MenuItem key={index} value={item}>

@@ -96,18 +96,25 @@ const Requests = () => {
                 key={item._id}
                 className="flex p-3 gap-y-3 justify-between items-center"
               >
-                <p className="basis-[16.66%]">{item.name}</p>
-                <p className="basis-[16.66%]">{item.course}</p>
-                <p className="basis-[16.66%]">{item.branch}</p>
+                <p className="basis-[16.66%]">{item.name.toUpperCase()}</p>
+                <p className="basis-[16.66%]">{item.course.toUpperCase()}</p>
+                <p className="basis-[16.66%]">{item.branch.toUpperCase()}</p>
                 <p className="basis-[16.66%]">{item.sem}</p>
                 <p className="basis-[16.66%]">{item.rollNumber}</p>
                 <div className="basis-[16.66%] flex gap-x-2">
                   <div onClick={() => handleApprove(item._id)}>
-                    <Button className="!bg-[#40afbf]" variant="contained" size="small">
+                    <Button
+                      className="!bg-[#40afbf]"
+                      variant="contained"
+                      size="small"
+                    >
                       Approve
                     </Button>
                   </div>
-                  <div className="cursor-pointer " onClick={() => handleDelete(item._id)}>
+                  <div
+                    className="cursor-pointer "
+                    onClick={() => handleDelete(item._id)}
+                  >
                     <Delete className="!text-[#40afbf]" fontSize="small" />
                   </div>
                 </div>
