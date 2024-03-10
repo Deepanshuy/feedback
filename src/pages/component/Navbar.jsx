@@ -2,6 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { MdOutlineLogin } from "react-icons/md";
 import { GiNotebook } from "react-icons/gi";
 import feedbackLogo from "../../../public/logo/feedbackLogo.png";
+import { MdOutlineDashboardCustomize } from "react-icons/md";
+
 const Navbar = () => {
   let token = JSON.parse(localStorage.getItem("token")) ?? null;
   const navigate = useNavigate();
@@ -38,6 +40,15 @@ const Navbar = () => {
           >
             <p>Register</p>
             <GiNotebook fontSize={24} />
+          </Link>
+        )}
+        {token && (
+          <Link
+            to={"/dashboard/my-profile"}
+            className="flex gap-x-1 justify-center cursor-pointer items-center p-2"
+          >
+            <p>Dashboard</p>
+            <MdOutlineDashboardCustomize fontSize={24} />
           </Link>
         )}
         {token && (

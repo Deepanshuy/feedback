@@ -81,12 +81,12 @@ const Requests = () => {
   return (
     <div>
       <div className="flex justify-between items-center ">
-        <p className="basis-[16.66%] ">Name</p>
-        <p className="basis-[16.66%]">Course</p>
-        <p className="basis-[16.66%]">Branch</p>
-        <p className="basis-[16.66%]">Semester</p>
-        <p className="basis-[16.66%]">Roll Number</p>
-        <p className="basis-[16.66%]">Status</p>
+        <p className="basis-[16.66%] font-semibold text-xl  ">Name</p>
+        <p className="basis-[16.66%] font-semibold text-xl ">Course</p>
+        <p className="basis-[16.66%] font-semibold text-xl ">Branch</p>
+        <p className="basis-[16.66%] font-semibold text-xl ">Semester</p>
+        <p className="basis-[16.66%] font-semibold text-xl ">Roll Number</p>
+        <p className="basis-[16.66%] font-semibold text-xl">Status</p>
       </div>
       <div>
         {data ? (
@@ -96,11 +96,11 @@ const Requests = () => {
                 key={item._id}
                 className="flex p-3 gap-y-3 justify-between items-center"
               >
-                <p className="basis-[16.66%]">{item.name.toUpperCase()}</p>
-                <p className="basis-[16.66%]">{item.course.toUpperCase()}</p>
-                <p className="basis-[16.66%]">{item.branch.toUpperCase()}</p>
-                <p className="basis-[16.66%]">{item.sem}</p>
-                <p className="basis-[16.66%]">{item.rollNumber}</p>
+                <p className="basis-[16.66%] text-sm">{item.name.toUpperCase()}</p>
+                <p className="basis-[16.66%] text-sm">{item.course.toUpperCase()}</p>
+                <p className="basis-[16.66%] text-sm">{item.branch.toUpperCase()}</p>
+                <p className="basis-[16.66%] text-sm">{item.sem}</p>
+                <p className="basis-[16.66%] text-sm">{item.rollNumber}</p>
                 <div className="basis-[16.66%] flex gap-x-2">
                   <div onClick={() => handleApprove(item._id)}>
                     <Button
