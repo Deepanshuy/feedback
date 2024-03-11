@@ -64,12 +64,28 @@ const feedBackSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  branch: {
+    type: String,
+  },
+  course: {
+    type: String,
+  },
+  sem: {
+    type: String,
+  },
+  marks: {
+    type: Number,
+  },
   score: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Score",
     },
   ],
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 const ScoreSchema = new mongoose.Schema({
@@ -77,7 +93,7 @@ const ScoreSchema = new mongoose.Schema({
     type: String,
   },
   score: {
-    type: Number,
+    type: String,
   },
 });
 // send email function
@@ -104,7 +120,7 @@ const ScoreSchema = new mongoose.Schema({
 
 const users = mongoose.model("users", userschema);
 const feedback = mongoose.model("feedback", feedBackSchema);
-const scores = mongoose.model("scores", ScoreSchema);
+const scores = mongoose.model("Score", ScoreSchema);
 module.exports = {
   users,
   feedback,

@@ -251,6 +251,9 @@ const StudentDashboard = () => {
           body: JSON.stringify({
             teacher: teacher,
             subject: subject,
+            sem: user.sem,
+            course: user.course,
+            branch: user.branch,
           }),
         }
       );

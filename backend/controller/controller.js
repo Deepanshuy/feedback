@@ -191,21 +191,27 @@ module.exports.deleteRequest = async (req, res) => {
 
 module.exports.createFeedback = async (req, res) => {
   try {
-    const { teacher, subject } = req.body;
+    const { teacher, subject, sem, branch, course } = req.body;
     const existingFeedback = await feedback.findOne({
       teacher: teacher,
       subject: subject,
+      sem: sem,
+      course: course,
+      branch: branch,
     });
 
-    if (existingFeedback) {
-      return res.status(200).json({
-        status: true,
-        message: "Feedback already exists",
-      });
-    }
+    // if (existingFeedback) {
+    //   return res.status(200).json({
+    //     status: true,
+    //     message: "Feedback already exists",
+    //   });
+    // }
     const newFeedback = await feedback.create({
       teacher: teacher,
       subject: subject,
+      sem: sem,
+      course: course,
+      branch: branch,
     });
 
     return res.status(200).json({
@@ -230,14 +236,17 @@ module.exports.createScores = async (req, res) => {
       score: score,
     });
 
-    const Feedback = await feedback.findOne({
-      teacher: teacher,
-      subject: subject,
-    });
-
+    const Feedback = await feedback
+      .find({
+        teacher: teacher,
+        subject: subject,
+      })
+      .sort({ createdAt: -1 })
+      .limit(1);
+    console.log(Feedback[0]);
     const updatedFeedback = await feedback.findByIdAndUpdate(
       {
-        _id: Feedback._id,
+        _id: Feedback[0]._id,
       },
       {
         $push: { score: newScore._id },
@@ -256,6 +265,45 @@ module.exports.createScores = async (req, res) => {
     return res.status(400).json({
       status: false,
       message: "Error while Creating Feedback",
+    });
+  }
+};
+
+module.exports.getFeedback = async (req, res) => {
+  try {
+    const { teacher } = req.body;
+
+    const teacherFeedback = await feedback
+      .find({ teacher: teacher })
+      .populate("score")
+      .exec();
+    if (!teacherFeedback) {
+      return res.status(404).json({
+        status: false,
+        message: "Feedback not found",
+      });
+    }
+
+    let totalScore;
+    teacherFeedback.forEach((fb) => {
+      totalScore = 0;
+      fb.score.forEach((feed) => {
+        if (feed.name !== "suggestion") {
+          totalScore += parseInt(feed.score);
+        }
+      });
+      fb.marks = totalScore;
+    });
+
+    return res.status(200).json({
+      status: true,
+      feedback: teacherFeedback,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(400).json({
+      status: false,
+      message: "Error while Fetching Feedback",
     });
   }
 };

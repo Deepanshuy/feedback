@@ -8,7 +8,28 @@ const AdminDashboard = () => {
     if (user.accountType !== "Admin") {
       navigate("/login");
     }
-  });
+    (async () => {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_APP_BASE_URL}/getFeedback`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              teacher: "Dr. Pooja Dhand",
+            }),
+          }
+        );
+
+        const res = await response.json();
+        console.log(res);
+      } catch (e) {
+        console.log(e);
+      }
+    })();
+  }, []);
   return <div>AdminDashboard</div>;
 };
 
