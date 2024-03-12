@@ -368,6 +368,7 @@ const StudentDashboard = () => {
                               min: 0,
                               max: 5,
                             }}
+                            required
                           />
                         </div>
                       </div>

@@ -87,7 +87,7 @@ const AdminDashboard = () => {
               ))}
           </Select>
         </FormControl>
-        <Button type="submit" variant="contained">
+        <Button type="submit" disabled={!teacher} variant="contained">
           Search
         </Button>
       </div>
