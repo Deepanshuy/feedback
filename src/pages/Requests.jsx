@@ -79,7 +79,7 @@ const Requests = () => {
     })();
   }, []);
   return (
-    <div>
+    <div className="w-[60rem] overflow-x-auto">
       <div className="flex justify-between items-center ">
         <p className="basis-[16.66%] font-semibold text-xl  ">Name</p>
         <p className="basis-[16.66%] font-semibold text-xl ">Course</p>

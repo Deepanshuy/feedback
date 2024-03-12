@@ -12,6 +12,7 @@ router.put("/approve", controller.approveRequest);
 router.delete("/delete", controller.deleteRequest);
 router.post("/createFeedback", controller.createFeedback);
 router.post("/getFeedback", controller.getFeedback);
+router.get("/getTeachers", controller.getTeachers);
 router.post("/createScore", controller.createScores);
 
 module.exports = router;

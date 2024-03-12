@@ -307,3 +307,20 @@ module.exports.getFeedback = async (req, res) => {
     });
   }
 };
+
+module.exports.getTeachers = async (req, res) => {
+  try {
+    const TeacherData = await feedback.find();
+    const teachers = [...new Set(TeacherData.map((y) => y.teacher))];
+    return res.status(200).json({
+      status: true,
+      teachers,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(400).json({
+      status: false,
+      message: "Error while Fetching Teachers",
+    });
+  }
+};
