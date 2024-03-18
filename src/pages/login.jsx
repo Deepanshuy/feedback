@@ -65,79 +65,88 @@ const Login = () => {
   }, []);
 
   return (
-    <div className="w-screen flex justify-center items-center h-screen">
-      <div className="md:w-[60%] w-[90%] h-[25rem] mx-auto  flex justify-center items-center overflow-hidden rounded-2xl  border-[#40afbf] border-4">
-        <div className="  md:block loginImg  hidden overflow-hidden">
-          <img src={login1} className="object-cover" alt="login" />
-        </div>
-        <div className="flex  flex-col  justify-between p-4 md:w-[60%] h-full">
-          <div className="w-full ">
-            <img src={logo} className="object-cover mx-auto" alt="login" />
-          </div>
-          <div className="p-3">
-            <ReactTyped
-              strings={["We are welcoming you ", "In LKCTC"]}
-              typeSpeed={40}
-              backSpeed={40}
-              backDelay={2}
-              loop
+    <div className="w-screen flex justify-center items-center h-screen p-5 ">
+      <div className="relative rounded-3xl bg-[#275c69] p-4 w-fit md:w-[60%]">
+        <div className="w-full  mx-auto  flex overflow-hidden rounded-2xl  bg-white ">
+          <div className="md:w-[70rem]  md:block loginImg  h-full hidden overflow-hidden ">
+            <img
+              src={login1}
+              className="object-cover w-full h-full"
+              alt="login"
             />
           </div>
-          <div>
-            <form onSubmit={handleSubmit} className="flex flex-col p-3 gap-y-5">
-              <div className="flex flex-col gap-y-8">
-                <div className=" flex flex-col gap-y-2">
-                  {/* <label htmlFor="email" className=" text-sm">Enter Your Email <span className="text-red-500 text-lg">*</span>: </label>   */}
-                  <TextField
-                    id="email"
-                    label="Enter Your Email"
-                    variant="outlined"
-                    onChange={handleChange}
-                    value={formData.email}
-                    size="small"
-                    type="email"
-                    name="email"
-                    className="w-full"
-                  />
-                </div>
-                <div className="relative flex flex-col gap-y-2">
-                  {/* <label htmlFor="password" className=" text-sm">Enter password <span className="text-red-500 text-lg">*</span>: </label>   */}
-                  <TextField
-                    id="password"
-                    label="Enter Password"
-                    variant="outlined"
-                    size="small"
-                    value={formData.password}
-                    onChange={handleChange}
-                    name="password"
-                    type={show ? "text" : "password"}
-                    className="w-full"
-                  />
-                  <div
-                    onClick={changeHandler}
-                    className="absolute right-3 bottom-2 cursor-pointer "
-                  >
-                    {show ? <VisibilityOffIcon /> : <VisibilityIcon />}
+          <div className="flex  mt-8 flex-col  justify-between h-[50%] p-4 md:w-[60%] w-full ">
+            <div className="w-full">
+              <img src={logo} className="object-cover " alt="login" />
+            </div>
+            <div className="p-3 font-semibold">
+              <ReactTyped
+                strings={["We are welcoming you ", "In LKCTC"]}
+                typeSpeed={40}
+                backSpeed={40}
+                backDelay={2}
+                loop
+              />
+            </div>
+            <div>
+              <form
+                onSubmit={handleSubmit}
+                className="flex flex-col p-3 gap-y-5"
+              >
+                <div className="flex flex-col gap-y-8">
+                  <div className=" flex flex-col gap-y-2">
+                    {/* <label htmlFor="email" className=" text-sm">Enter Your Email <span className="text-red-500 text-lg">*</span>: </label>   */}
+                    <TextField
+                      id="email"
+                      label="Enter Your Email"
+                      variant="outlined"
+                      onChange={handleChange}
+                      value={formData.email}
+                      size="small"
+                      type="email"
+                      name="email"
+                      className="w-full"
+                    />
+                  </div>
+                  <div className="relative flex flex-col gap-y-2">
+                    {/* <label htmlFor="password" className=" text-sm">Enter password <span className="text-red-500 text-lg">*</span>: </label>   */}
+                    <TextField
+                      id="password"
+                      label="Enter Password"
+                      variant="outlined"
+                      size="small"
+                      value={formData.password}
+                      onChange={handleChange}
+                      name="password"
+                      type={show ? "text" : "password"}
+                      className="w-full"
+                    />
+                    <div
+                      onClick={changeHandler}
+                      className="absolute right-3 bottom-2 cursor-pointer "
+                    >
+                      {show ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <Button
-                variant="contained"
-                size="small"
-                type="submit"
-                className="!bg-[#40afbf] !w-full"
-              >
-                log in
-              </Button>
-            </form>
+                <Button
+                  variant="contained"
+                  size="small"
+                  type="submit"
+                  className="!bg-[#1e93ff] !w-full"
+                >
+                  log in
+                </Button>
+              </form>
+            </div>
+            <p className="text-xs mx-auto">
+              Don't have account?{" "}
+              <Link to="/signup" className="text-[#403fff] cursor-pointer">
+                Create Now
+              </Link>
+            </p>
           </div>
-          <p className="text-xs mx-auto">
-            Don't have account?{" "}
-            <Link to="/signup" className="text-[#403fff] cursor-pointer">
-              Create Now
-            </Link>
-          </p>
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import { Button, Divider, TextField } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -293,12 +293,16 @@ const StudentDashboard = () => {
     toast.success("Your Feedback Has been created successfully");
     navigate("/");
   };
-
+  useEffect(() => {
+    if (user.accountType !== "Student") {
+      navigate("/login");
+    }
+  }, []);
   return (
     <div className="flex flex-col justify-between">
-      <div className="text-3xl font-medium p-4">
+      <div className="text-xl font-medium p-4 bg-gradient-to-r from-[#0a1f3c]  to-[#275c69] text-white w-fit mx-auto mb-4 rounded-md">
         {user.course.toUpperCase()} <span>{user.branch.toUpperCase()}</span>
-        <span> {user.sem}</span>
+        <span>-{user.sem}</span>
       </div>
       <Divider className="bg-black" />
       <div className="p-5">
@@ -347,7 +351,7 @@ const StudentDashboard = () => {
                   </FormControl>
                 </div>
                 {teacher && subject && (
-                  <div className="p-4  flex flex-col gap-y-4 border-2 custom-border m-3  rounded-lg bg-[#40afbf]">
+                  <div className="p-4  flex flex-col gap-y-4 border-2 custom-border m-3  rounded-lg bg-[#c6c6c6]">
                     {item.metric.map((d, i) => (
                       <div
                         className="flex flex-col md:flex-row justify-between items-center border rounded-lg p-2 custom-border bg-white "

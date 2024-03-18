@@ -14,7 +14,7 @@ const Navbar = () => {
     navigate("/login");
   };
   return (
-    <div className="h-[8dvh] w-screen fixed top-0 bg-[#40afbf] text-white font-medium flex justify-between items-center p-6 z-10">
+    <div className="h-[8dvh] w-screen fixed top-0 bg-gradient-to-r from-[#0a1f3c]  to-[#275c69] text-white font-medium flex justify-between items-center p-6 z-10 custom-class">
       <Link to={"/"} className="p-2 border-6 border-black h-[5rem] w-[12rem]">
         <img
           src={feedbackLogo}

@@ -6,7 +6,9 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Requests = () => {
   const token = JSON.parse(localStorage.getItem("token")) ?? null;
+  const user = JSON.parse(localStorage.getItem("user")) ?? null;
   const [data, setData] = useState(null);
+  const navigate = useNavigate();
 
   const handleDelete = async (id) => {
     try {
@@ -78,6 +80,11 @@ const Requests = () => {
       }
     })();
   }, []);
+  useEffect(() => {
+    if (user.accountType !== "Admin") {
+      navigate("/login");
+    }
+  }, []);
   return (
     <div className="w-[60rem] overflow-x-auto">
       <div className="flex justify-between items-center ">
@@ -96,15 +103,21 @@ const Requests = () => {
                 key={item._id}
                 className="flex p-3 gap-y-3 justify-between items-center"
               >
-                <p className="basis-[16.66%] text-sm">{item.name.toUpperCase()}</p>
-                <p className="basis-[16.66%] text-sm">{item.course.toUpperCase()}</p>
-                <p className="basis-[16.66%] text-sm">{item.branch.toUpperCase()}</p>
+                <p className="basis-[16.66%] text-sm">
+                  {item.name.toUpperCase()}
+                </p>
+                <p className="basis-[16.66%] text-sm">
+                  {item.course.toUpperCase()}
+                </p>
+                <p className="basis-[16.66%] text-sm">
+                  {item.branch.toUpperCase()}
+                </p>
                 <p className="basis-[16.66%] text-sm">{item.sem}</p>
                 <p className="basis-[16.66%] text-sm">{item.rollNumber}</p>
                 <div className="basis-[16.66%] flex gap-x-2">
                   <div onClick={() => handleApprove(item._id)}>
                     <Button
-                      className="!bg-[#40afbf]"
+                      className="!bg-[#265b68]"
                       variant="contained"
                       size="small"
                     >
@@ -115,7 +128,7 @@ const Requests = () => {
                     className="cursor-pointer "
                     onClick={() => handleDelete(item._id)}
                   >
-                    <Delete className="!text-[#40afbf]" fontSize="small" />
+                    <Delete className="!text-[#265b68]" fontSize="small" />
                   </div>
                 </div>
               </div>

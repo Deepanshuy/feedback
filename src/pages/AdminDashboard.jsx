@@ -94,7 +94,7 @@ const AdminDashboard = () => {
       <div className=" flex flex-col gap-y-6 w-full  overflow-x-auto">
         <div className="w-[60rem] flex flex-col gap-y-5 ">
           {data && (
-            <div className="flex justify-between font-medium">
+            <div className="flex justify-between font-bold">
               <p className="basis-[25%]">Teacher's Name</p>
               <p className="basis-[25%]">Subject</p>
               <p className="basis-[25%]">Course</p>

@@ -11,6 +11,7 @@ import Requests from "./pages/Requests";
 import NotFound from "./pages/NotFound";
 import { useEffect } from "react";
 import StudentDashboard from "./pages/StudentDashboard";
+import Footer from "./pages/component/Footer";
 
 function App() {
   const user = JSON.parse(localStorage.getItem("user")) ?? null;
@@ -20,30 +21,25 @@ function App() {
       <Navbar />
       <div className="mt-[8dvh]">
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/"  element={<HomePage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route element={<Dashboard />}>
             <Route path="/dashboard/my-profile" element={<MyProfile />} />
 
-            {user?.accountType === "Admin" && (
-              <>
-                <Route path="/dashboard/admin" element={<AdminDashboard />} />
-                <Route path="/dashboard/requests" element={<Requests />} />
-              </>
-            )}
-            {user?.accountType === "Student" && (
-              <>
-                <Route
-                  path="/dashboard/student"
-                  element={<StudentDashboard />}
-                />
-              </>
-            )}
+            <>
+              <Route path="/dashboard/admin" element={<AdminDashboard />} />
+              <Route path="/dashboard/requests" element={<Requests />} />
+            </>
+
+            <>
+              <Route path="/dashboard/student" element={<StudentDashboard />} />
+            </>
           </Route>
-          {/* <Route path="*" element={<NotFound />} /> */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
+      {/* <Footer/> */}
     </div>
   );
 }

@@ -4,11 +4,17 @@
   box-sizing: border-box;
 }
 .active {
-  background: white;
+  
+  background: #c6c6c6;
   color: black;
+  border-right: 6px solid #0a1f3c;
+ 
+}
+.active:hover{
+  background: #c6c6c6 !important;
 }
 .custom-border{
-  border-color: #40afbf;
+  border-color: #818181;
 }
 .textfield-style{
   border: none;
