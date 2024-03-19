@@ -43,7 +43,7 @@ const userschema = new mongoose.Schema({
   accountType: {
     type: String,
     enum: ["Admin", "Student"],
-    default: "Admin",
+    default: "Student",
   },
   token: {
     type: String,

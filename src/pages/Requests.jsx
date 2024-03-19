@@ -85,6 +85,7 @@ const Requests = () => {
       navigate("/login");
     }
   }, []);
+
   return (
     <div className="w-[60rem] overflow-x-auto">
       <div className="flex justify-between items-center ">
@@ -96,7 +97,7 @@ const Requests = () => {
         <p className="basis-[16.66%] font-semibold text-xl">Status</p>
       </div>
       <div>
-        {data ? (
+        {data && data.length > 0 ? (
           data.map((item) => {
             return (
               <div

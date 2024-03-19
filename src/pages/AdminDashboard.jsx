@@ -5,6 +5,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { Button } from "@mui/material";
+
 const AdminDashboard = () => {
   const user = JSON.parse(localStorage.getItem("user")) ?? null;
   const [teacher, setTeacher] = useState();
@@ -12,6 +13,7 @@ const AdminDashboard = () => {
   const [data, setData] = useState();
   const [score, setScore] = useState();
   const navigate = useNavigate();
+
   useEffect(() => {
     if (user.accountType !== "Admin") {
       navigate("/login");
@@ -65,6 +67,15 @@ const AdminDashboard = () => {
       }
     })();
   }, []);
+  const options = {
+    filename: "Teachers_Record.pdf",
+    image: { type: "jpeg", quality: 0.98 },
+    html2canvas: { scale: 2 },
+    jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
+    page: {
+      margin: 20,
+    },
+  };
   return (
     <form onSubmit={handleSubmit} className=" flex flex-col gap-y-5">
       <div className="flex md:flex-row flex-col gap-y-4 gap-x-4 ">
@@ -91,7 +102,7 @@ const AdminDashboard = () => {
           Search
         </Button>
       </div>
-      <div className=" flex flex-col gap-y-6 w-full  overflow-x-auto">
+      <div className=" flex flex-col gap-y-6 w-full  overflow-x-auto container">
         <div className="w-[60rem] flex flex-col gap-y-5 ">
           {data && (
             <div className="flex justify-between font-bold">
@@ -115,7 +126,7 @@ const AdminDashboard = () => {
               );
             })}
           {data && (
-            <div className="font-bold flex justify-between items-center w-[82%] text-xl mt-6 md:mt-8">
+            <div className="font-bold flex justify-between items-center w-[82%] text-xl mt-6 md:my-8">
               <p>Average Rating</p>
               <p>{score}</p>
             </div>

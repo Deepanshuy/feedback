@@ -324,3 +324,172 @@ module.exports.getTeachers = async (req, res) => {
     });
   }
 };
+
+// module.exports.getAllFeedback = async (req, res) => {
+//   try {
+//     const allTeachers = await feedback.find().populate("score");
+//     const uniqueTeachers = [...new Set(allTeachers.map((y) => y.teacher))];
+
+//     // Create an object to store grouped data
+//     const groupedTeachers = {};
+
+//     // Iterate through allTeachers and group data by teacher
+//     allTeachers.forEach((fb) => {
+//       if (!groupedTeachers[fb.teacher]) {
+//         groupedTeachers[fb.teacher] = {
+//           teacher: fb.teacher,
+//           feedback: [],
+//           totalMarks: 0,
+//           subjectAvg: {},
+//         };
+//       }
+
+//       let totalScore = 0;
+//       let totalSubjects = 0;
+//       fb.score.forEach((feed) => {
+//         if (feed.name !== "suggestion") {
+//           totalScore += parseInt(feed.score);
+//           totalSubjects++;
+//         }
+//       });
+
+//       // Calculate average marks for each subject
+//       const subjectKey = fb.subject;
+//       const branchSemKey = `${fb.branch}-${fb.sem}`;
+//       if (!groupedTeachers[fb.teacher].subjectAvg[subjectKey]) {
+//         groupedTeachers[fb.teacher].subjectAvg[subjectKey] = {
+//           totalMarks: 0,
+//           count: 0,
+//           branchSem: branchSemKey,
+//         };
+//       }
+//       groupedTeachers[fb.teacher].subjectAvg[subjectKey].totalMarks +=
+//         totalScore;
+//       groupedTeachers[fb.teacher].subjectAvg[subjectKey].count++;
+
+//       // Add marks to totalMarks for the teacher
+//       groupedTeachers[fb.teacher].totalMarks += totalScore;
+
+//       // Push feedback for the teacher
+//       groupedTeachers[fb.teacher].feedback.push({
+//         subject: fb.subject,
+//         branch: fb.branch,
+//         course: fb.course,
+//         sem: fb.sem,
+//         marks: totalScore,
+//         createdAt: fb.createdAt,
+//       });
+//     });
+
+//     // Calculate average marks for each subject for each teacher
+//     for (const teacherKey in groupedTeachers) {
+//       const teacherData = groupedTeachers[teacherKey];
+//       for (const subjectKey in teacherData.subjectAvg) {
+//         const avgData = teacherData.subjectAvg[subjectKey];
+//         avgData.average = avgData.totalMarks / avgData.count;
+//         avgData["branch-sem"] = avgData.branchSem;
+//         delete avgData.branchSem;
+//       }
+//     }
+
+//     // Convert groupedTeachers object to an array of objects
+//     const groupedTeachersArray = Object.values(groupedTeachers);
+
+//     return res.status(200).json({
+//       status: true,
+//       data: groupedTeachersArray,
+//       teachers: uniqueTeachers,
+//     });
+//   } catch (err) {
+//     console.log(err);
+//     return res.status(400).json({
+//       status: false,
+//       message: "Error while fetching all feedback",
+//     });
+//   }
+// };
+
+module.exports.getAllFeedback = async (req, res) => {
+  try {
+    const allTeachers = await feedback.find().populate("score");
+    const uniqueTeachers = [...new Set(allTeachers.map((y) => y.teacher))];
+
+    // Create an object to store grouped data
+    const groupedTeachers = {};
+
+    // Iterate through allTeachers and group data by teacher
+    allTeachers.forEach((fb) => {
+      if (!groupedTeachers[fb.teacher]) {
+        groupedTeachers[fb.teacher] = {
+          teacher: fb.teacher,
+          feedback: [],
+          totalMarks: 0,
+          subjectAvg: [],
+        };
+      }
+
+      let totalScore = 0;
+      let totalSubjects = 0;
+      fb.score.forEach((feed) => {
+        if (feed.name !== "suggestion") {
+          totalScore += parseInt(feed.score);
+          totalSubjects++;
+        }
+      });
+
+
+      const subjectKey = fb.subject;
+      const branchSemKey = `${fb.branch}-${fb.sem}`;
+      const existingSubjectIndex = groupedTeachers[
+        fb.teacher
+      ].subjectAvg.findIndex((entry) => entry.subject === subjectKey);
+      if (existingSubjectIndex === -1) {
+        groupedTeachers[fb.teacher].subjectAvg.push({
+          totalMarks: totalScore,
+          count: 1,
+          average: totalScore,
+          "branch-sem": branchSemKey,
+          subject: subjectKey,
+        });
+      } else {
+        groupedTeachers[fb.teacher].subjectAvg[
+          existingSubjectIndex
+        ].totalMarks += totalScore;
+        groupedTeachers[fb.teacher].subjectAvg[existingSubjectIndex].count++;
+        groupedTeachers[fb.teacher].subjectAvg[existingSubjectIndex].average =
+          groupedTeachers[fb.teacher].subjectAvg[existingSubjectIndex]
+            .totalMarks /
+          groupedTeachers[fb.teacher].subjectAvg[existingSubjectIndex].count;
+      }
+
+      groupedTeachers[fb.teacher].totalMarks += totalScore;
+
+      groupedTeachers[fb.teacher].feedback.push({
+        subject: fb.subject,
+        branch: fb.branch,
+        course: fb.course,
+        sem: fb.sem,
+        marks: totalScore,
+        createdAt: fb.createdAt,
+      });
+    });
+
+    const groupedTeachersArray = Object.values(groupedTeachers);
+
+    groupedTeachersArray.forEach((teacher) => {
+      teacher.subjectAvg = Object.values(teacher.subjectAvg);
+    });
+
+    return res.status(200).json({
+      status: true,
+      data: groupedTeachersArray,
+      teachers: uniqueTeachers,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(400).json({
+      status: false,
+      message: "Error while fetching all feedback",
+    });
+  }
+};
