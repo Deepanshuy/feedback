@@ -57,14 +57,16 @@ const Records = () => {
   return (
     <>
       {data && (
-        <Button
-          variant="contained"
-          className="!bg-[#1e4a5b]"
-          onClick={downloadPdf}
-          endIcon={<Download/>}
-        >
-          Download
-        </Button>
+        <div className="mx-auto flex">
+          <Button
+            variant="contained"
+            className="!bg-[#1e4a5b] !ml-auto"
+            onClick={downloadPdf}
+            endIcon={<Download />}
+          >
+            Download
+          </Button>
+        </div>
       )}
       <div className="container">
         <div className="p-2 my-4">
