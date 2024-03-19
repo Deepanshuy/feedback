@@ -18,6 +18,12 @@ export const sidebarLinks = [
   },
   {
     id: 4,
+    name: "Records",
+    type: "Admin",
+    path: "/dashboard/record",
+  },
+  {
+    id: 5,
     name: "Dashboard",
     type: "Student",
     path: "/dashboard/student",

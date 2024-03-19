@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard";
 import MyProfile from "./pages/MyProfile";
 import AdminDashboard from "./pages/AdminDashboard";
 import Requests from "./pages/Requests";
+import Records from "./pages/Records";
 import NotFound from "./pages/NotFound";
 import { useEffect } from "react";
 import StudentDashboard from "./pages/StudentDashboard";
@@ -30,6 +31,7 @@ function App() {
             <>
               <Route path="/dashboard/admin" element={<AdminDashboard />} />
               <Route path="/dashboard/requests" element={<Requests />} />
+              <Route path="/dashboard/record" element={<Records />} />
             </>
 
             <>

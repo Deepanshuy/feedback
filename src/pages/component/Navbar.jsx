@@ -1,9 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
 import { MdOutlineLogin } from "react-icons/md";
 import { GiNotebook } from "react-icons/gi";
-import feedbackLogo from "../../../public/logo/feedbackLogo.png";
 import { MdOutlineDashboardCustomize } from "react-icons/md";
-
+import TextsmsIcon from '@mui/icons-material/Textsms';
 const Navbar = () => {
   let token = JSON.parse(localStorage.getItem("token")) ?? null;
   const navigate = useNavigate();
@@ -15,12 +14,12 @@ const Navbar = () => {
   };
   return (
     <div className="h-[8dvh] w-screen fixed top-0 bg-gradient-to-r from-[#0a1f3c]  to-[#275c69] text-white font-medium flex justify-between items-center p-6 z-10 custom-class">
-      <Link to={"/"} className="p-2 border-6 border-black h-[5rem] w-[12rem]">
-        <img
-          src={feedbackLogo}
-          alt="feedbacklogo"
-          className="object-cover h-full w-full  "
-        />
+      <Link to={"/"} className="p-5 border-6 border-black">
+       <div className="flex items-center justify-center gap-1">
+ <h2>Feedback Hub</h2>
+       <TextsmsIcon className="!text-[#FBDE5A] p-0" />
+        </div>
+       
       </Link>
       <div className="md:flex items-center gap-x-4 hidden">
         {!token && (

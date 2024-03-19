@@ -69,7 +69,7 @@ const StudentDashboard = () => {
       semester: "2nd",
       sess: "even",
       subject: ["PPS", "Chemistry", "Maths II", "English"],
-      teacher: ["2Teacher1", "2Teacher2", "2Teacher3", "2Teacher4"],
+      teacher: ["Er.Rakesh gagneja", "Ms.Harbinder kaur", "dr. Pawan preet kaur", "teacher"],
       metric: [
         "Has the Teacher covered entire Syllabus as prescribed by University/ College/Board?",
         "Has the Teacher covered relevant topics beyond syllabus",
@@ -311,8 +311,8 @@ const StudentDashboard = () => {
             item.semester === user.sem &&
             item.branch === user.branch &&
             item.course === user.course && (
-              <form onSubmit={handleOnSubmit} key={index} className="flex-col">
-                <div className="flex flex-col md:flex-row gap-x-2 gap-y-6 ">
+              <form onSubmit={handleOnSubmit} key={index} className=" flex flex-col items-center justify-center">
+                <div className="flex flex-col md:flex-row gap-x-2 gap-y-6 w-full ">
                   <FormControl size="small" fullWidth>
                     <InputLabel id="branch">Subject</InputLabel>
                     <Select
@@ -415,7 +415,7 @@ const StudentDashboard = () => {
                   <Button
                     variant="contained"
                     type="submit"
-                    className="w-full !bg-blue-500"
+                    className="w-[20%]  !bg-gradient-to-r from-[#0a1f3c]  to-[#275c69] text-white"
                   >
                     Submit
                   </Button>
