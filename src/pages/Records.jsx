@@ -89,13 +89,13 @@ const Records = () => {
       <div className="container">
         <div className="p-2 my-4">
           <div className="flex flex-col gap-y-2 items-center justify-center">
-            <div className="font-semibold text-3xl">
+            <div className="font-semibold text-center md:text-3xl">
               Lyallpur Khalsa College Technical Campus, Jalandhar
             </div>
-            <div className="font-medium text-xl">
+            <div className="font-medium md:text-xl">
               Faculty Feedback Evaluation Report
             </div>
-            <div className="font-medium text-xl">
+            <div className="font-medium md:text-xl">
               Session:{period} {currentyear}
             </div>
           </div>
