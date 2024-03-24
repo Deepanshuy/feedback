@@ -191,7 +191,7 @@ module.exports.deleteRequest = async (req, res) => {
 
 module.exports.createFeedback = async (req, res) => {
   try {
-    const { teacher, subject, sem, branch, course } = req.body;
+    const { teacher, subject, sem, branch, course, session } = req.body;
     const existingFeedback = await feedback.findOne({
       teacher: teacher,
       subject: subject,
@@ -210,6 +210,7 @@ module.exports.createFeedback = async (req, res) => {
       teacher: teacher,
       subject: subject,
       sem: sem,
+      session: session,
       course: course,
       branch: branch,
     });
@@ -271,10 +272,10 @@ module.exports.createScores = async (req, res) => {
 
 module.exports.getFeedback = async (req, res) => {
   try {
-    const { teacher } = req.body;
+    const { teacher, session } = req.body;
 
     const teacherFeedback = await feedback
-      .find({ teacher: teacher })
+      .find({ teacher: teacher, session: session })
       .populate("score")
       .exec();
     if (!teacherFeedback) {
@@ -411,7 +412,10 @@ module.exports.getTeachers = async (req, res) => {
 
 module.exports.getAllFeedback = async (req, res) => {
   try {
-    const allTeachers = await feedback.find().populate("score");
+    const { session } = req.body;
+    const allTeachers = await feedback
+      .find({ session: session })
+      .populate("score");
     const uniqueTeachers = [...new Set(allTeachers.map((y) => y.teacher))];
 
     // Create an object to store grouped data
@@ -436,7 +440,6 @@ module.exports.getAllFeedback = async (req, res) => {
           totalSubjects++;
         }
       });
-
 
       const subjectKey = fb.subject;
       const branchSemKey = `${fb.branch}-${fb.sem}`;

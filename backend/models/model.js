@@ -64,6 +64,9 @@ const feedBackSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  session: {
+    type: String,
+  },
   branch: {
     type: String,
   },

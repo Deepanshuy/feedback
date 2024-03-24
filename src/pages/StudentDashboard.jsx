@@ -259,6 +259,7 @@ const StudentDashboard = () => {
             sem: user.sem,
             course: user.course,
             branch: user.branch,
+            session: currentSession,
           }),
         }
       );
@@ -303,6 +304,16 @@ const StudentDashboard = () => {
       navigate("/login");
     }
   }, []);
+  let session;
+  const current = new Date();
+  const month = current.getMonth();
+  const year = current.getFullYear();
+  if (month >= 0 && month <= 5) {
+    session = "even";
+  } else {
+    session = "odd";
+  }
+  let currentSession = session + year;
   return (
     <div className="flex flex-col justify-between">
       <div className="text-xl font-medium p-4 bg-gradient-to-r from-[#0a1f3c]  to-[#275c69] text-white w-fit mx-auto mb-4 rounded-md">

@@ -31,7 +31,16 @@ const Records = () => {
     (async () => {
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_APP_BASE_URL}/getAllFeedback`
+          `${import.meta.env.VITE_APP_BASE_URL}/getAllFeedback`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              session: currentSession,
+            }),
+          }
         );
         const res = await response.json();
         console.log(res.data);
@@ -53,10 +62,19 @@ const Records = () => {
   const getTargetElement = () => document.querySelector(".container");
 
   const downloadPdf = () => generatePDF(getTargetElement, options);
-
+  let session;
+  const current = new Date();
+  const mn = current.getMonth();
+  const year = current.getFullYear();
+  if (mn >= 0 && mn <= 5) {
+    session = "even";
+  } else {
+    session = "odd";
+  }
+  let currentSession = session + year;
   return (
     <>
-      {data && (
+      {data && data.length > 0 && (
         <div className="mx-auto flex">
           <Button
             variant="contained"
@@ -82,61 +100,75 @@ const Records = () => {
             </div>
           </div>
         </div>
-        <form action="" className="flex flex-col gap-y-4">
-          <div className=" flex flex-col gap-y-6 w-full  overflow-x-auto">
-            <div className="w-[62.5rem] flex flex-col gap-y-8 ">
-              {data &&
-                data.map((item, index) => {
-                  let total = 0;
-                  return (
-                    <div
-                      key={index}
-                      className={`flex flex-col p-3 border-2 gap-y-1   border-black shadow-md`}
-                    >
-                      <div className="font-bold py-1 border-b-2 w-full border-black">
-                        Faculty Name : {item.teacher}
-                      </div>
-                      <div>
-                        <div className="flex justify-between font-bold">
-                          <p className="basis-[10%]">S.No</p>
-                          <p className="basis-[25%]  ">Name of Subject</p>
-                          <p className="basis-[20%]">Class/Sem</p>
-                          <p className="basis-[25%] ">No.of Students Filled</p>
-                          <p className="basis-[30%]">Average Feedback Marks</p>
-                          <p className="w-[7rem]">Remarks</p>
+        {data && data.length > 0 ? (
+          <form action="" className="flex flex-col gap-y-4">
+            <div className=" flex flex-col gap-y-6 w-full  overflow-x-auto">
+              <div className="w-[62.5rem] flex flex-col gap-y-8 ">
+                {data &&
+                  data.map((item, index) => {
+                    let total = 0;
+                    return (
+                      <div
+                        key={index}
+                        className={`flex flex-col p-3 border-2 gap-y-1   border-black shadow-md`}
+                      >
+                        <div className="font-bold py-1 border-b-2 w-full border-black">
+                          Faculty Name : {item.teacher}
+                        </div>
+                        <div>
+                          <div className="flex justify-between font-bold">
+                            <p className="basis-[10%]">S.No</p>
+                            <p className="basis-[25%]  ">Name of Subject</p>
+                            <p className="basis-[20%]">Class/Sem</p>
+                            <p className="basis-[25%] ">
+                              No.of Students Filled
+                            </p>
+                            <p className="basis-[30%]">
+                              Average Feedback Marks
+                            </p>
+                            <p className="w-[7rem]">Remarks</p>
+                          </div>
+                        </div>
+                        {item.subjectAvg.map((subject, index) => {
+                          total += subject.average;
+                          return (
+                            <div key={index} className="flex justify-between ">
+                              <p className="basis-[10%] ">{index + 1}</p>
+                              <p className="basis-[25%]">{subject.subject}</p>
+                              <p className="basis-[20%] ">
+                                {subject["branch-sem"].toUpperCase()}
+                              </p>
+                              <p className="basis-[25%] ">{subject.count}</p>
+                              <p className="basis-[30%]">{subject.average}</p>
+                              <p className="w-[7rem]"></p>
+                            </div>
+                          );
+                        })}
+                        <div className="flex gap-x-3 mt-4 items-center  text-l font-bold">
+                          <p>Final Average:</p>
+                          <p>{total / item.subjectAvg.length}</p>
+                        </div>
+                        <div className="flex gap-x-3  items-center text-l font-bold">
+                          <p>Final Percentage:</p>
+                          <p>
+                            {(
+                              (total / item.subjectAvg.length / 45) *
+                              100
+                            ).toFixed(2)}
+                            %
+                          </p>
                         </div>
                       </div>
-                      {item.subjectAvg.map((subject, index) => {
-                        total += subject.average;
-                        return (
-                          <div key={index} className="flex justify-between ">
-                            <p className="basis-[10%] ">{index + 1}</p>
-                            <p className="basis-[25%]">{subject.subject}</p>
-                            <p className="basis-[20%] ">
-                              {subject["branch-sem"].toUpperCase()}
-                            </p>
-                            <p className="basis-[25%] ">{subject.count}</p>
-                            <p className="basis-[30%]">{subject.average}</p>
-                            <p className="w-[7rem]">
-                              
-                            </p>
-                          </div>
-                        );
-                      })}
-                      <div className="flex gap-x-3 mt-4 items-center  text-l font-bold">
-                        <p>Final Average:</p>
-                        <p>{total / item.subjectAvg.length}</p>
-                      </div>
-                      <div className="flex gap-x-3  items-center text-l font-bold">
-                        <p>Final Percentage:</p>
-                        <p>{((total / item.subjectAvg.length / 45) * 100).toFixed(2)}%</p>
-                      </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+              </div>
             </div>
+          </form>
+        ) : (
+          <div className="flex justify-center items-center text-4xl h-[25rem]">
+            No Records of this Session
           </div>
-        </form>
+        )}
       </div>
     </>
   );

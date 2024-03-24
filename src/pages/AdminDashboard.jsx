@@ -36,6 +36,7 @@ const AdminDashboard = () => {
             },
             body: JSON.stringify({
               teacher: teacher,
+              session: currentSession,
             }),
           }
         );
@@ -52,6 +53,16 @@ const AdminDashboard = () => {
       }
     })();
   };
+  let session;
+  const current = new Date();
+  const mn = current.getMonth();
+  const year = current.getFullYear();
+  if (mn >= 0 && mn <= 5) {
+    session = "even";
+  } else {
+    session = "odd";
+  }
+  let currentSession = session + year;
 
   useEffect(() => {
     (async () => {
