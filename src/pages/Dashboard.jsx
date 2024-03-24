@@ -10,7 +10,7 @@ const Dashboard = () => {
         <>
           <div
             className="min-w-[222px] flex-col  lg:flex
-        h-[calc[100vh-3.5rem)] bg-[#fcfcfc] py-10 custom-class hidden "
+        h-[calc[100vh-3.5rem)] bg-[#fcfcfc] py-10 custom-class hidden"
           >
             <div className="flex flex-col ">
               {sidebarLinks.map((link) => {
@@ -29,7 +29,7 @@ const Dashboard = () => {
               })}
             </div>
           </div>
-          <div className="flex lg:hidden fixed bottom-0 justify-between bg-white items-center px-2 py-1 z-50 w-full">
+          <div className="flex lg:hidden fixed bottom-0 justify-between bg-white items-center   z-50 w-full custom-class">
             <div className="flex flex-row gap-1 w-full justify-between ">
               {sidebarLinks.map((link) => {
                 if (link.type && user.accountType !== link.type) return null;
@@ -45,7 +45,6 @@ const Dashboard = () => {
                     key={link.id}
                   >
                     <Icon fontSize={24} />
-                    
                   </NavLink>
                 );
               })}

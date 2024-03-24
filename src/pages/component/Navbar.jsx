@@ -17,14 +17,14 @@ const Navbar = () => {
     navigate("/login");
   };
   return (
-    <div className="h-[8dvh] w-screen fixed top-0 bg-gradient-to-r from-[#0a1f3c]  to-[#275c69] text-white font-medium flex justify-between items-center  z-[60] custom-class">
+    <div className="h-[8dvh] w-screen fixed top-0 bg-gradient-to-r p-6 from-[#0a1f3c]  to-[#275c69] text-white font-medium flex justify-between items-center  z-[60] custom-class">
       <Link
         to={"/"}
         onClick={() => setOpen(false)}
         className="p-5 border-6 border-black"
       >
         <div className="flex items-center justify-center gap-1">
-          <h2>Feedback Hub</h2>
+          <h2>feedback Hub</h2>
           <TextsmsIcon className="!text-[#FBDE5A] p-0" />
         </div>
       </Link>
@@ -71,7 +71,7 @@ const Navbar = () => {
         <Hamburger size={24} toggled={isOpen} toggle={setOpen} />
       </div>
       {isOpen && (
-        <div className="md:flex flex-col items-center gap-x-4 fixed top-[8dvh] bg-white text-black  left-0 w-full h-full md:hidden ">
+        <div className=" flex-col items-center gap-x-4 fixed top-[8dvh] bg-white text-black  left-0 w-full h-full md:hidden ">
           {!token && (
             <Link
               to="/login"

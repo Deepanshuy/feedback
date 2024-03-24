@@ -115,7 +115,7 @@ const Signup = () => {
       console.log(res);
     } catch (e) {
       console.log(e);
-      toast.error("Login Error");
+      toast.error("Sign up Error");
     }
   };
   useEffect(() => {

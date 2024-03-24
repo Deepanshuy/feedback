@@ -5,7 +5,7 @@
   "type": "module",
   "proxy": "http://localhost:5173",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite dev --host",
     "server": "cd backend && npm run dev",
     "d": "concurrently -n \"client,server\" -c \"bgBlue,bgYellow\" \"npm run dev\" \"npm run server\"",
     "build": "vite build",

@@ -62,48 +62,19 @@ const HomePage = () => {
         navigation={false}
         pagination={{ clickable: true }}
         onSwiper={(swiper) => console.log(swiper)}
-        onSlideChange={() => console.log("slide change")}
+        breakpoints={{
+          300: { slidesPerView: 1.1, spaceBetween: 10 },
+          640: { slidesPerView: 2.2, spaceBetween: 10 },
+          1024: { slidesPerView: 4, spaceBetween: 10 },
+        }}
       >
         <SwiperSlide>
           <div className="h-[12rem] w-[16rem] bg-red-200 rounded-2xl overflow-hidden ">
             <div className="relative h-[100%] w-[100%]">
-              <img src={BtechImg} alt="btech pic" />
+              <img src={BtechImg} alt="btech-pic" />
               <div className="absolute h-[1.5rem] bottom-0 left-[50%] -translate-x-[50%] flex items-center justify-center  bg-[#275c69] w-full py-2  z-10"></div>
               <p className="absolute bottom-1 left-[50%] -translate-x-[50%] text-white z-10 font-bold">
                 B.Tech
-              </p>
-            </div>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="h-[12rem] w-[16rem] bg-red-200 rounded-2xl overflow-hidden">
-            <div className="relative h-[100%] w-[100%]">
-              <img src={BscImg} alt="btech pic" />
-              <div className="absolute h-[1.5rem] bottom-0 left-[50%] -translate-x-[50%] flex items-center justify-center bg-[#275c69] w-full py-2  z-10"></div>
-              <p className="absolute bottom-1 left-[50%] -translate-x-[50%] text-white z-10 font-bold">
-                B.Sc
-              </p>
-            </div>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="h-[12rem] w-[16rem] bg-red-200 rounded-2xl overflow-hidden">
-            <div className="relative h-[100%] w-[100%]">
-              <img src={BtechImg} alt="btech pic" />
-              <div className="absolute h-[1.5rem] bottom-0 left-[50%] -translate-x-[50%] flex items-center justify-center bg-[#275c69] w-full py-2  z-10"></div>
-              <p className="absolute bottom-1 left-[50%] -translate-x-[50%] text-white z-10 font-bold">
-                B.Voc
-              </p>
-            </div>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="h-[12rem] w-[16rem] bg-red-200 rounded-2xl overflow-hidden">
-            <div className="relative h-[100%] w-[100%]">
-              <img src={BscImg} alt="btech pic" />
-              <div className="absolute h-[1.5rem] bottom-0 left-[50%] -translate-x-[50%] flex items-center justify-center bg-[#275c69] w-full py-2  z-10"></div>
-              <p className="absolute bottom-1 left-[50%] -translate-x-[50%] text-white z-10 font-bold">
-                Diploma
               </p>
             </div>
           </div>
@@ -111,10 +82,10 @@ const HomePage = () => {
         <SwiperSlide>
           <div className="h-[12rem] w-[16rem] bg-red-200 rounded-2xl overflow-hidden ">
             <div className="relative h-[100%] w-[100%]">
-              <img src={BtechImg} alt="btech pic" />
+              <img src={BtechImg} alt="btech-pic" />
               <div className="absolute h-[1.5rem] bottom-0 left-[50%] -translate-x-[50%] flex items-center justify-center  bg-[#275c69] w-full py-2  z-10"></div>
               <p className="absolute bottom-1 left-[50%] -translate-x-[50%] text-white z-10 font-bold">
-                B.Tech
+                Data Science
               </p>
             </div>
           </div>
