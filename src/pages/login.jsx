@@ -1,6 +1,6 @@
 import { ReactTyped } from "react-typed";
-import login1 from "../../public/loginpics/login1.svg";
-import logo from "../../public/loginpics/logolkc.svg";
+import login1 from "/loginpics/login1.svg";
+import logo from "/loginpics/logolkc.svg";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { Link, useNavigate } from "react-router-dom";

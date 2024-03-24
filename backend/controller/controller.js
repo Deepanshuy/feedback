@@ -1,4 +1,10 @@
-const { users, registration, feedback, scores } = require("../models/model");
+const {
+  users,
+  registration,
+  feedback,
+  scores,
+  allowFeedback,
+} = require("../models/model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
@@ -12,7 +18,9 @@ module.exports.signup = async (req, res) => {
       course,
       branch,
       rollNumber,
+      accountType,
       sem,
+      approved,
     } = req.body;
     if (
       !email ||
@@ -69,9 +77,16 @@ module.exports.signup = async (req, res) => {
       branch,
       rollNumber,
       sem,
+      accountType,
+      approved,
     });
     User.password = undefined;
-
+    if (accountType === "Admin") {
+      const createAllow = await allowFeedback.create({
+        admin: email,
+        allowFeedback: false,
+      });
+    }
     return res
       .cookie("token", token, {
         httpOnly: true,
@@ -199,13 +214,6 @@ module.exports.createFeedback = async (req, res) => {
       course: course,
       branch: branch,
     });
-
-    // if (existingFeedback) {
-    //   return res.status(200).json({
-    //     status: true,
-    //     message: "Feedback already exists",
-    //   });
-    // }
     const newFeedback = await feedback.create({
       teacher: teacher,
       subject: subject,
@@ -493,6 +501,49 @@ module.exports.getAllFeedback = async (req, res) => {
     return res.status(400).json({
       status: false,
       message: "Error while fetching all feedback",
+    });
+  }
+};
+module.exports.updateAllowFeedback = async (req, res) => {
+  try {
+    const { email, allow } = req.body;
+    const updateAllowFeedback = await allowFeedback.findOneAndUpdate(
+      {
+        admin: email,
+      },
+      { allowFeedback: allow },
+      { new: true }
+    );
+    if (!updateAllowFeedback) {
+      return res
+        .status(404)
+        .json({ status: false, message: "Admin not found" });
+    }
+    return res.status(200).json({
+      status: true,
+      allow: updateAllowFeedback,
+      message: "Updated allow feedback successfully",
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(404).json({
+      status: false,
+      message: "Something went wrong while updating the allow feedback",
+    });
+  }
+};
+module.exports.getAllowFeedback = async (req, res) => {
+  try {
+    const allow = await allowFeedback.find();
+    return res.status(200).json({
+      status: true,
+      allow: allow[0],
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(404).json({
+      status: false,
+      message: "Something went wrong while updating the allow feedback",
     });
   }
 };

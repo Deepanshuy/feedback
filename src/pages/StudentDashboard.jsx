@@ -13,7 +13,7 @@ const StudentDashboard = () => {
   const [subject, setSubject] = useState("");
   const [teacher, setTeacher] = useState("");
   const [formData, setFormData] = useState([]);
-
+  const [allowFeedback, setAllowFeedback] = useState(false);
   const navigate = useNavigate();
   const handleChange = (e) => {
     const fieldName = e.target.name;
@@ -304,6 +304,23 @@ const StudentDashboard = () => {
       navigate("/login");
     }
   }, []);
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_APP_BASE_URL}/getAllowFeedback`
+        );
+
+        const res = await response.json();
+
+        console.log(res);
+        setAllowFeedback(res.allow.allowFeedback);
+      } catch (e) {
+        console.log(e);
+        toast.error("Allow Feedback Error");
+      }
+    })();
+  }, []);
   let session;
   const current = new Date();
   const month = current.getMonth();
@@ -321,129 +338,135 @@ const StudentDashboard = () => {
         <span>-{user.sem}</span>
       </div>
       <Divider className="bg-black" />
-      <div className="p-5">
-        {data.map(
-          (item, index) =>
-            item.semester === user.sem &&
-            item.branch === user.branch &&
-            item.course === user.course && (
-              <form
-                onSubmit={handleOnSubmit}
-                key={index}
-                className=" flex flex-col items-center justify-center"
-              >
-                <div className="flex flex-col md:flex-row gap-x-2 gap-y-6 w-full ">
-                  <FormControl size="small" fullWidth>
-                    <InputLabel id="branch">Subject</InputLabel>
-                    <Select
-                      labelId="subject"
-                      id="subject"
-                      name="subject"
-                      size="small"
-                      value={subject}
-                      label="Subject"
-                      onChange={(e) => setSubject(e.target.value)}
-                    >
-                      {item.subject.map((item, index) => (
-                        <MenuItem key={index} value={item}>
-                          {item.toUpperCase()}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                  <FormControl size="small" fullWidth>
-                    <InputLabel id="teacher">Teacher</InputLabel>
-                    <Select
-                      labelId="teacher"
-                      id="teacher"
-                      name="teacher"
-                      size="small"
-                      value={teacher}
-                      label="Teacher"
-                      onChange={(e) => setTeacher(e.target.value)}
-                    >
-                      {item.teacher.map((item, index) => (
-                        <MenuItem key={index} value={item}>
-                          {item.toUpperCase()}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </div>
-                {teacher && subject && (
-                  <div className="p-4  flex flex-col gap-y-4 border-2 custom-border m-3  rounded-lg bg-[#c6c6c6]">
-                    {item.metric.map((d, i) => (
-                      <div
-                        className="flex flex-col md:flex-row justify-between items-center border rounded-lg p-2 custom-border bg-white "
-                        key={i}
+      {allowFeedback ? (
+        <div className="p-5">
+          {data.map(
+            (item, index) =>
+              item.semester === user.sem &&
+              item.branch === user.branch &&
+              item.course === user.course && (
+                <form
+                  onSubmit={handleOnSubmit}
+                  key={index}
+                  className=" flex flex-col items-center justify-center"
+                >
+                  <div className="flex flex-col md:flex-row gap-x-2 gap-y-6 w-full ">
+                    <FormControl size="small" fullWidth>
+                      <InputLabel id="branch">Subject</InputLabel>
+                      <Select
+                        labelId="subject"
+                        id="subject"
+                        name="subject"
+                        size="small"
+                        value={subject}
+                        label="Subject"
+                        onChange={(e) => setSubject(e.target.value)}
                       >
-                        <p>{d}</p>
-                        <div className=" md:w-[5rem] w-full">
+                        {item.subject.map((item, index) => (
+                          <MenuItem key={index} value={item}>
+                            {item.toUpperCase()}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                    <FormControl size="small" fullWidth>
+                      <InputLabel id="teacher">Teacher</InputLabel>
+                      <Select
+                        labelId="teacher"
+                        id="teacher"
+                        name="teacher"
+                        size="small"
+                        value={teacher}
+                        label="Teacher"
+                        onChange={(e) => setTeacher(e.target.value)}
+                      >
+                        {item.teacher.map((item, index) => (
+                          <MenuItem key={index} value={item}>
+                            {item.toUpperCase()}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </div>
+                  {teacher && subject && (
+                    <div className="p-4  flex flex-col gap-y-4 border-2 custom-border m-3  rounded-lg  bg-[#275c69]">
+                      {item.metric.map((d, i) => (
+                        <div
+                          className="flex flex-col md:flex-row justify-between items-center border rounded-lg p-2 custom-border bg-white "
+                          key={i}
+                        >
+                          <p>{d}</p>
+                          <div className=" md:w-[5rem] w-full">
+                            <TextField
+                              id={d}
+                              variant="outlined"
+                              onChange={handleChange}
+                              value={formData.d}
+                              size="small"
+                              className="w-full"
+                              type="number"
+                              name={d}
+                              inputProps={{
+                                min: 0,
+                                max: 5,
+                              }}
+                              required
+                            />
+                          </div>
+                        </div>
+                      ))}
+                      <div className=" w-[100%]   p-1 flex md:flex-row flex-col items-center justify-between">
+                        <div className="  md:w-[50%] p-3">
+                          <h2 className="p-1 font-semibold text-white">
+                            Suggestions if any:
+                          </h2>
                           <TextField
-                            id={d}
+                            className="w-full bg-white rounded-lg textfield-style"
+                            id="suggestion"
                             variant="outlined"
                             onChange={handleChange}
-                            value={formData.d}
-                            size="small"
-                            className="w-full"
-                            type="number"
-                            name={d}
-                            inputProps={{
-                              min: 0,
-                              max: 5,
-                            }}
-                            required
+                            value={formData.suggestion}
+                            size="medium"
+                            type="text"
+                            name="suggestion"
+                            multiline
+                            rows={5}
+                            cols={100}
                           />
                         </div>
-                      </div>
-                    ))}
-                    <div className=" w-[100%]   p-1 flex md:flex-row flex-col items-center justify-between">
-                      <div className="  md:w-[50%] p-3">
-                        <h2 className="p-1 font-semibold">
-                          Suggestions if any:
-                        </h2>
-                        <TextField
-                          className="w-full bg-white rounded-lg textfield-style"
-                          id="suggestion"
-                          variant="outlined"
-                          onChange={handleChange}
-                          value={formData.suggestion}
-                          size="medium"
-                          type="text"
-                          name="suggestion"
-                          multiline
-                          rows={5}
-                          cols={100}
-                        />
-                      </div>
-                      <div className="md:w-[40%]">
-                        <h1 className="p-1 font-semibold">
-                          Give Rating on a Scale of 1 to 5:
-                        </h1>
-                        <ul className="bg-white rounded-lg list-disc pl-6 p-2">
-                          <li>5-Excellent</li>
-                          <li>4-Very Good</li>
-                          <li>3-Good</li>
-                          <li>2-Poor</li>
-                          <li>1-Very Poor</li>
-                        </ul>
+                        <div className="md:w-[40%]">
+                          <h1 className="p-1 font-semibold text-white">
+                            Give Rating on a Scale of 1 to 5:
+                          </h1>
+                          <ul className="bg-white rounded-lg list-disc pl-6 p-2">
+                            <li>5-Excellent</li>
+                            <li>4-Very Good</li>
+                            <li>3-Good</li>
+                            <li>2-Poor</li>
+                            <li>1-Very Poor</li>
+                          </ul>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                )}
-                {teacher && subject && (
-                  <Button
-                    variant="contained"
-                    type="submit"
-                    className="w-[20%]  !bg-gradient-to-r from-[#0a1f3c]  to-[#275c69] text-white"
-                  >
-                    Submit
-                  </Button>
-                )}
-              </form>
-            )
-        )}
-      </div>
+                  )}
+                  {teacher && subject && (
+                    <Button
+                      variant="contained"
+                      type="submit"
+                      className="w-[20%]  !bg-gradient-to-r from-[#0a1f3c]  to-[#275c69] text-white"
+                    >
+                      Submit
+                    </Button>
+                  )}
+                </form>
+              )
+          )}
+        </div>
+      ) : (
+        <div className="text-3xl flex justify-center items-center h-[15rem] text-center">
+          You are not Allowed to give feedback
+        </div>
+      )}
     </div>
   );
 };

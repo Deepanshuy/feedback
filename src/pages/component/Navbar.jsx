@@ -71,7 +71,7 @@ const Navbar = () => {
         <Hamburger size={24} toggled={isOpen} toggle={setOpen} />
       </div>
       {isOpen && (
-        <div className=" flex-col items-center gap-x-4 fixed top-[8dvh] bg-white text-black  left-0 w-full h-full md:hidden ">
+        <div className=" flex-col items-center gap-x-4 fixed top-[8dvh] bg-white text-black  left-0 w-full h-[95%] md:hidden ">
           {!token && (
             <Link
               to="/login"

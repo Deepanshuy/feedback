@@ -15,5 +15,7 @@ router.post("/getFeedback", controller.getFeedback);
 router.get("/getTeachers", controller.getTeachers);
 router.post("/createScore", controller.createScores);
 router.post("/getAllFeedback", controller.getAllFeedback);
+router.put("/updateAllowFeedback", controller.updateAllowFeedback);
+router.get("/getAllowFeedback", controller.getAllowFeedback);
 
 module.exports = router;

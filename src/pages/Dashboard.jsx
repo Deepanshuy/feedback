@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import { sidebarLinks } from "../assets/data/sidebarlinks";
 import * as icons from "react-icons/vsc";
+
 const Dashboard = () => {
+
   const user = JSON.parse(localStorage.getItem("user")) ?? null;
   return (
     <div>

@@ -109,7 +109,12 @@ const AdminDashboard = () => {
               ))}
           </Select>
         </FormControl>
-        <Button type="submit" disabled={!teacher} variant="contained">
+        <Button
+          type="submit"
+          className={`${teacher ? "!bg-[#1e4a5b] !text-white" : ""}`}
+          disabled={!teacher}
+          variant="contained"
+        >
           Search
         </Button>
       </div>

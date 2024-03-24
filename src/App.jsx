@@ -18,11 +18,11 @@ function App() {
   const user = JSON.parse(localStorage.getItem("user")) ?? null;
   const token = JSON.parse(localStorage.getItem("token")) ?? null;
   return (
-    <div >
+    <div>
       <Navbar />
-      <div className="mt-[8dvh]">
+      <div className="mt-[8dvh] relative">
         <Routes>
-          <Route path="/"  element={<HomePage />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route element={<Dashboard />}>
@@ -41,7 +41,6 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
-      <Footer/>
     </div>
   );
 }

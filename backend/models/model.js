@@ -98,6 +98,16 @@ const ScoreSchema = new mongoose.Schema({
     type: String,
   },
 });
+
+const allowFeedbackSchema = new mongoose.Schema({
+  allowFeedback: {
+    type: Boolean,
+    default: false,
+  },
+  admin: {
+    type: String,
+  },
+});
 // send email function
 
 // registerationSchema.post("save", async (doc) => {
@@ -123,8 +133,10 @@ const ScoreSchema = new mongoose.Schema({
 const users = mongoose.model("users", userschema);
 const feedback = mongoose.model("feedback", feedBackSchema);
 const scores = mongoose.model("Score", ScoreSchema);
+const allowFeedback = mongoose.model("allowFeedback", allowFeedbackSchema);
 module.exports = {
   users,
   feedback,
   scores,
+  allowFeedback,
 };

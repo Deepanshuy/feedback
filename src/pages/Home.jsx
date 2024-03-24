@@ -1,16 +1,16 @@
 import { Link } from "react-router-dom";
-import backgroundImage from "../../public/HomePagePics/backgroundImage.svg";
-import logo from "../../public/loginpics/logolkc.svg";
+import backgroundImage from "/HomePagePics/backgroundImage.svg";
+import logo from "/loginpics/logolkc.svg";
 import { Autoplay, Mousewheel, Keyboard } from "swiper/modules";
-import BtechImg from "../../public/HomePagePics/btech.svg";
-import BscImg from "../../public/HomePagePics/bsc.svg";
+import BtechImg from "/HomePagePics/btech.svg";
+import BscImg from "/HomePagePics/bsc.svg";
 import { Swiper, SwiperSlide } from "swiper/react";
-
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
+import Footer from "./component/Footer";
 
 const HomePage = () => {
   return (
@@ -124,6 +124,10 @@ const HomePage = () => {
           </div>
         </SwiperSlide>
       </Swiper>
+      <div className=" h-[5rem] "></div>
+      <div className="absolute -bottom-10 left-0">
+        <Footer />
+      </div>
     </>
   );
 };

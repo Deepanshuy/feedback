@@ -19,7 +19,6 @@ const Footer = () => {
           B.tech(CSE-6th)
         </div>
       </div>
-      <div className="lg:hidden h-[9dvh] "></div>
     </>
   );
 };

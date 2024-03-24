@@ -1,17 +1,84 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import Switch from "@mui/material/Switch";
+import toast from "react-hot-toast";
 const MyProfile = () => {
   let user = JSON.parse(localStorage.getItem("user")) ?? null;
   const token = JSON.parse(localStorage.getItem("token")) ?? null;
+  const [checked, setChecked] = useState(false);
+
+  const handleChange = async (event) => {
+    setChecked(event.target.checked);
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_APP_BASE_URL}/updateAllowFeedback`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: user.email,
+            allow: !checked,
+          }),
+        }
+      );
+
+      const res = await response.json();
+      console.log(res);
+    } catch (e) {
+      console.log(e);
+      toast.error("Update Error");
+    }
+  };
+
   const navigate = useNavigate();
   useEffect(() => {
     if (!token) {
       navigate("/login");
     }
   }, []);
+  useEffect(() => {
+    if (user.accountType === "Admin") {
+      (async () => {
+        try {
+          const response = await fetch(
+            `${import.meta.env.VITE_APP_BASE_URL}/updateAllowFeedback`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                email: user.email,
+              }),
+            }
+          );
+
+          const res = await response.json();
+          console.log(res);
+          setChecked(res.allow.allowFeedback);
+        } catch (e) {
+          console.log(e);
+          toast.error("Update Error");
+        }
+      })();
+    }
+  }, []);
   return (
-    <div className="bg-gradient-to-r p-6 relative -z-10 from-[#081C3A]  to-[#316F78] text-white flex flex-col font-bold rounded-xl text-xl">
+    <div className="bg-gradient-to-r p-6 relative  from-[#081C3A]  to-[#316F78] text-white flex flex-col font-bold rounded-xl text-xl">
+      {user.accountType === "Admin" && (
+        <div className="cursor-pointer ml-auto">
+          <label htmlFor="Allow Feedback">Allow Feedback</label>
+          {
+            <Switch
+              checked={checked}
+              onChange={handleChange}
+              id="Allow Feedback"
+            />
+          }
+        </div>
+      )}
       {user && (
         <div className="flex items-center p-5 md:gap-x-12 text-2xl gap-x-4">
           <img
@@ -41,7 +108,7 @@ const MyProfile = () => {
           </div>
           <div className="basis-[50%]">
             <p className="text-[#A6A6A6] font-medium text-sm">Course</p>
-            <p >{user.course.toUpperCase()}</p>
+            <p>{user.course.toUpperCase()}</p>
           </div>
         </div>
         <div className="flex gap-y-3  md:flex-row flex-col md:items-center ">
