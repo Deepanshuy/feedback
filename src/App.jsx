@@ -18,7 +18,7 @@ function App() {
   const user = JSON.parse(localStorage.getItem("user")) ?? null;
   const token = JSON.parse(localStorage.getItem("token")) ?? null;
   return (
-    <div>
+    <div >
       <Navbar />
       <div className="mt-[8dvh]">
         <Routes>
@@ -41,7 +41,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
-      {/* <Footer/> */}
+      <Footer/>
     </div>
   );
 }
