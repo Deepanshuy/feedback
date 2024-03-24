@@ -42,7 +42,7 @@ const Records = () => {
     })();
   }, []);
   const options = {
-    filename: "Teachers_Record.pdf",
+    filename: `Teachers_Record ${period}.pdf`,
     image: { type: "jpeg", quality: 0.98 },
     html2canvas: { scale: 2 },
     jsPDF: { unit: "in", format: "A4", orientation: "portrait" },
@@ -84,15 +84,16 @@ const Records = () => {
         </div>
         <form action="" className="flex flex-col gap-y-4">
           <div className=" flex flex-col gap-y-6 w-full  overflow-x-auto">
-            <div className="w-[60rem] flex flex-col gap-y-5 ">
+            <div className="w-[62.5rem] flex flex-col gap-y-5 ">
               {data &&
                 data.map((item, index) => {
+                  let total = 0;
                   return (
                     <div
                       key={index}
                       className={`flex flex-col p-3 border-2 gap-y-1 border-black shadow-md`}
                     >
-                      <div className="font-bold py-1 border-b-2 border-black">
+                      <div className="font-bold py-1 border-b-2 w-full border-black">
                         Faculty Name : {item.teacher}
                       </div>
                       <div>
@@ -102,10 +103,11 @@ const Records = () => {
                           <p className="basis-[20%]">Class/Sem</p>
                           <p className="basis-[25%] ">No.of Students Filled</p>
                           <p className="basis-[30%]">Average Feedback Marks</p>
-                          <p className="w-[6rem]">Remarks</p>
+                          <p className="w-[7rem]">Remarks</p>
                         </div>
                       </div>
                       {item.subjectAvg.map((subject, index) => {
+                        total += subject.average;
                         return (
                           <div key={index} className="flex justify-between ">
                             <p className="basis-[10%] ">{index + 1}</p>
@@ -115,12 +117,20 @@ const Records = () => {
                             </p>
                             <p className="basis-[25%] ">{subject.count}</p>
                             <p className="basis-[30%]">{subject.average}</p>
-                            <p className="w-[6rem]" contentEditable={true}>
-                              Remarks
+                            <p className="w-[7rem]">
+                              
                             </p>
                           </div>
                         );
                       })}
+                      <div className="flex gap-x-3 mt-4 items-center  text-l font-bold">
+                        <p>Final Average:</p>
+                        <p>{total / item.subjectAvg.length}</p>
+                      </div>
+                      <div className="flex gap-x-3  items-center text-l font-bold">
+                        <p>Final Percentage:</p>
+                        <p>{((total / item.subjectAvg.length / 45) * 100).toFixed(2)}%</p>
+                      </div>
                     </div>
                   );
                 })}

@@ -126,7 +126,7 @@ const AdminDashboard = () => {
               );
             })}
           {data && (
-            <div className="font-bold flex justify-between items-center w-[82%] text-xl mt-6 md:my-8">
+            <div className="font-bold flex justify-between items-center w-[84%]  text-xl mt-6  md:my-8">
               <p>Average Rating</p>
               <p>{score}</p>
             </div>

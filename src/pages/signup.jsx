@@ -13,6 +13,9 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
+
+import ConvoImg from "../../public/loginpics/convo.jpg";
+
 const Signup = () => {
   const navigate = useNavigate();
   const token = JSON.parse(localStorage.getItem("token")) ?? null;
@@ -135,7 +138,7 @@ const Signup = () => {
         <div className=" bg-white mx-auto  flex justify-center items-center overflow-hidden rounded-2xl  border-[#275c69]  border-4">
           <div className="  md:block border-black loginImg w-[60%] h-[30rem] hidden overflow-hidden">
             <img
-              src={login1}
+              src={ConvoImg}
               className="w-full object-cover h-full "
               alt="login"
             />
@@ -144,7 +147,7 @@ const Signup = () => {
             <div className="w-full ">
               <img src={logo} className="object-cover mx-auto" alt="login" />
             </div>
-            <div className="p-3">
+            <div className="p-3 font-bold">
               <ReactTyped
                 strings={["We are welcoming you ", "In LKCTC"]}
                 typeSpeed={40}
@@ -320,7 +323,7 @@ const Signup = () => {
                   variant="contained"
                   size="small"
                   type="submit"
-                  className="!bg-[#40afbf] !w-full"
+                  className="!bg-[#1e93ff] !w-full"
                 >
                   register now
                 </Button>

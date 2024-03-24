@@ -9,6 +9,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 
+import ConvoImg from "../../public/loginpics/convo.jpg";
 const Login = () => {
   const token = JSON.parse(localStorage.getItem("token")) ?? null;
   const navigate = useNavigate();
@@ -70,7 +71,7 @@ const Login = () => {
         <div className="w-full  mx-auto  flex overflow-hidden rounded-2xl  bg-white ">
           <div className="md:w-[70rem]  md:block loginImg  h-full hidden overflow-hidden ">
             <img
-              src={login1}
+              src={ConvoImg}
               className="object-cover w-full h-full"
               alt="login"
             />

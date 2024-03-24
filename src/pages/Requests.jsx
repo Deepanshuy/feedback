@@ -8,6 +8,7 @@ const Requests = () => {
   const token = JSON.parse(localStorage.getItem("token")) ?? null;
   const user = JSON.parse(localStorage.getItem("user")) ?? null;
   const [data, setData] = useState(null);
+  const [score, setScore] = useState();
   const navigate = useNavigate();
 
   const handleDelete = async (id) => {

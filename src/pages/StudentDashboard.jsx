@@ -176,7 +176,7 @@ const StudentDashboard = () => {
         "WCN",
         "Cloud Computing",
         "AI Lab",
-        "ML LAb",
+        "ML Lab",
         "CD Lab",
         "CC Lab",
       ],
