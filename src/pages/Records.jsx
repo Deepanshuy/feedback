@@ -84,14 +84,14 @@ const Records = () => {
         </div>
         <form action="" className="flex flex-col gap-y-4">
           <div className=" flex flex-col gap-y-6 w-full  overflow-x-auto">
-            <div className="w-[62.5rem] flex flex-col gap-y-5 ">
+            <div className="w-[62.5rem] flex flex-col gap-y-8 ">
               {data &&
                 data.map((item, index) => {
                   let total = 0;
                   return (
                     <div
                       key={index}
-                      className={`flex flex-col p-3 border-2 gap-y-1 border-black shadow-md`}
+                      className={`flex flex-col p-3 border-2 gap-y-1   border-black shadow-md`}
                     >
                       <div className="font-bold py-1 border-b-2 w-full border-black">
                         Faculty Name : {item.teacher}
