@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const { isEmail } = require("validator");
 // const nodemailer = require("nodemailer");
 
-// login signup schema:
 const userschema = new mongoose.Schema({
   email: {
     type: String,
@@ -14,7 +13,7 @@ const userschema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, "please enter a password"],
-    minlength: [6, "minmum length should be six"],
+    minlength: [6, "minimum length should be six"],
   },
   name: {
     type: String,

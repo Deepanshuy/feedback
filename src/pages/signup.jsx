@@ -13,7 +13,6 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-
 import ConvoImg from "../../public/loginpics/convo.jpg";
 
 const Signup = () => {
@@ -133,7 +132,7 @@ const Signup = () => {
     session = "odd";
   }
   return (
-    <div className="w-screen flex justify-center items-center h-screen">
+    <div className="w-screen mt-[8rem] md:mt-0 flex justify-center items-center h-screen">
       <div className="relative bg-[#275c69]  md:w-[60%] p-3 rounded-2xl">
         <div className=" bg-white mx-auto  flex justify-center items-center overflow-hidden rounded-2xl  border-[#275c69]  border-4">
           <div className="  md:block border-black loginImg w-[60%] h-[30rem] hidden overflow-hidden">
