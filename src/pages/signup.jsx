@@ -13,7 +13,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-import ConvoImg from "../../public/loginpics/convo.jpg";
+import ConvoImg from "/loginpics/convo.jpg";
 
 const Signup = () => {
   const navigate = useNavigate();

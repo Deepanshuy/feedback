@@ -2,23 +2,29 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 .active {
-  
   background: #c6c6c6;
   color: black;
   border-right: 6px solid #0a1f3c;
- 
 }
-.active:hover{
+.active:hover {
   background: #c6c6c6 !important;
 }
-.custom-border{
+.custom-border {
   border-color: #818181;
 }
-.textfield-style{
+.textfield-style {
   border: none;
   outline: none;
   appearance: none;
   border-color: green;
+}
+.footer {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  font-variation-settings: "slnt" 0;
 }

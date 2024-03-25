@@ -31,7 +31,7 @@ const Dashboard = () => {
               })}
             </div>
           </div>
-          <div className="flex h-[7dvh] lg:hidden fixed bottom-0 justify-between bg-white items-center   z-50 w-full custom-class">
+          <div className="flex  lg:hidden fixed bottom-0 justify-between bg-white items-center   z-50 w-full custom-class">
             <div className="flex flex-row gap-1 w-full justify-between ">
               {sidebarLinks.map((link) => {
                 if (link.type && user.accountType !== link.type) return null;

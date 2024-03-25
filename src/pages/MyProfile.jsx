@@ -80,7 +80,7 @@ const MyProfile = () => {
         </div>
       )}
       {user && (
-        <div className="flex items-center p-5 md:gap-x-12 text-2xl gap-x-4">
+        <div className="flex items-center p-5 md:gap-x-10 text-2xl gap-x-4">
           <img
             src={`https://api.dicebear.com/5.x/initials/svg?seed=${user.name}`}
             alt="none"
@@ -94,7 +94,7 @@ const MyProfile = () => {
         <div className="flex  gap-y-3 md:flex-row flex-col md:items-center ">
           <div className="basis-[50%]">
             <p className="text-[#A6A6A6] font-medium text-sm ">Name</p>
-            <p>{user.name.toUpperCase()}</p>
+            <p>{user.name}</p>
           </div>
           <div className="basis-[50%]">
             <p className="text-[#A6A6A6]  font-medium text-sm">Roll Number</p>

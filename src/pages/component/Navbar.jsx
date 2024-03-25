@@ -17,7 +17,7 @@ const Navbar = () => {
     navigate("/login");
   };
   return (
-    <div className="h-[8dvh] w-screen fixed top-0 bg-gradient-to-r p-6 from-[#0a1f3c]  to-[#275c69] text-white font-medium flex justify-between items-center  z-[60] custom-class">
+    <div className="h-[8dvh] w-screen fixed top-0 bg-gradient-to-r md:p-6 p-3 from-[#0a1f3c]  to-[#275c69] text-white font-medium flex justify-between items-center  z-[60] custom-class">
       <Link
         to={"/"}
         onClick={() => setOpen(false)}

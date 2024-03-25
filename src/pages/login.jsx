@@ -9,7 +9,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 
-import ConvoImg from "../../public/loginpics/convo.jpg";
+import ConvoImg from "/loginpics/convo.jpg";
 const Login = () => {
   const token = JSON.parse(localStorage.getItem("token")) ?? null;
   const navigate = useNavigate();
